@@ -3,7 +3,7 @@ const Footer = () => {
     <footer className="relative w-full px-10 py-10 mx-auto bg-primary">
       <div className="max-w-7xl mx-auto flex flex-col items-center justify-center">
         <p className="text-white text-center">
-          © {new Date().getFullYear()} Nama Anda. All Rights Reserved.
+          © {new Date().getFullYear()} Albertus Sendhi Satriawan. All Rights Reserved.
         </p>
         
         <div className="flex gap-5 mt-5">
