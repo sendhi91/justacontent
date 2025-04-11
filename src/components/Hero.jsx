@@ -7,15 +7,13 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleGoDeeper = () => {
-    // Smooth exit animation before navigation
-    document.querySelector('.hero-content').style.opacity = '0';
-    document.querySelector('.hero-content').style.transform = 'translateY(20px)';
-    
-    setTimeout(() => {
-      navigate('/about');
-      // Scroll to top after navigation
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 500); // Match this duration with your transition
+    // Animation for page transition
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+      heroContent.style.opacity = '0';
+      heroContent.style.transform = 'translateY(20px)';
+    }
+    setTimeout(() => navigate('/about'), 500); // Matches transition duration
   };
 
   return (
@@ -27,7 +25,8 @@ const Hero = () => {
           ? 'linear-gradient(to bottom right, #111827, #1f2937)'
           : 'linear-gradient(to bottom right, #f0f9ff, #e0f2fe)'
       }}
-      initial={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.5 } }}
     >
       <div className="hero-content text-center max-w-4xl mx-auto transition-all duration-500">
@@ -36,51 +35,28 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.p 
-            className="text-lg md:text-xl text-blue-600 dark:text-blue-400 mb-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
+          <p className="text-lg md:text-xl text-blue-600 dark:text-blue-400 mb-2">
             Halo
-          </motion.p>
-          
-          <motion.h1 
-            className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-2"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
+          </p>
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-2">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
               Albertus Sendhi
             </span>
-          </motion.h1>
-          
-          <motion.h1 
-            className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-4"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
+          </h1>
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-4">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
               Satriawan
             </span>
-          </motion.h1>
-          
-          <motion.h2 
-            className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
+          </h1>
+          <h2 className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8">
             Graphics Designer
-          </motion.h2>
+          </h2>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-12"
         >
           <motion.button
