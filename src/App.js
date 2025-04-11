@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { DarkModeProvider } from './context/DarkModeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -9,6 +10,46 @@ import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
+// Wrapper untuk AnimatePresence
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode='wait'>
+      <Routes location={location} key={location.pathname}>
+        {/* Route untuk halaman utama (semua komponen dalam satu scroll) */}
+        <Route 
+          path="/" 
+          element={
+            <>
+              <Hero />
+              <About />
+              <Skills />
+              <Projects />
+              <Contact />
+            </>
+          } 
+        />
+        
+        {/* Route untuk halaman About saja (setelah klik "Go Deeper") */}
+        <Route 
+          path="/about" 
+          element={
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <About standalone /> {/* Tambahkan prop 'standalone' untuk styling berbeda */}
+            </motion.div>
+          } 
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App = () => {
   return (
     <DarkModeProvider>
@@ -17,18 +58,7 @@ const App = () => {
           <Navbar />
           
           <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={
-                <>
-                  <Hero />
-                  <About />
-                  <Skills />
-                  <Projects />
-                  <Contact />
-                </>
-              } />
-              {/* Tambahkan route lainnya jika diperlukan */}
-            </Routes>
+            <AnimatedRoutes />
           </main>
 
           <Footer />
