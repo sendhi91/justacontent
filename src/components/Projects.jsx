@@ -60,7 +60,7 @@ const Projects = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <span className="text-blue-400">Proyek</span> Saya
+          <span className="text-blue-400">My</span> Projects
         </motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
