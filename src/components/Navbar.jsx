@@ -49,7 +49,7 @@ export default function Navbar() {
           PortfolioKu
         </Link>
         
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-4 sm:space-x-6 ml-2 sm:ml-0">
           <Link to="/" className="text-gray-800 dark:text-gray-200 hover:text-blue-500">Home</Link>
           <Link to="/projects" className="text-gray-800 dark:text-gray-200 hover:text-blue-500">Projects</Link>
           <Link to="/contact" className="text-gray-800 dark:text-gray-200 hover:text-blue-500">Contact</Link>
