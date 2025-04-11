@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion'; // Tambahkan impor ini
 import { DarkModeProvider } from './context/DarkModeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -10,14 +11,12 @@ import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
-// Wrapper untuk AnimatePresence
 const AnimatedRoutes = () => {
   const location = useLocation();
 
   return (
     <AnimatePresence mode='wait'>
       <Routes location={location} key={location.pathname}>
-        {/* Route untuk halaman utama (semua komponen dalam satu scroll) */}
         <Route 
           path="/" 
           element={
@@ -31,7 +30,6 @@ const AnimatedRoutes = () => {
           } 
         />
         
-        {/* Route untuk halaman About saja (setelah klik "Go Deeper") */}
         <Route 
           path="/about" 
           element={
@@ -41,7 +39,7 @@ const AnimatedRoutes = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <About standalone /> {/* Tambahkan prop 'standalone' untuk styling berbeda */}
+              <About standalone />
             </motion.div>
           } 
         />
