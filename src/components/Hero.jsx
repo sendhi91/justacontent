@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -13,8 +13,8 @@ const Hero = () => {
   const mouseY = useMotionValue(0);
   
   const handleMouseMove = (e) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
+    mouseX.set(e.clientX - window.innerWidth/2);
+    mouseY.set(e.clientY - window.innerHeight/2);
   };
 
   const handleGoDeeper = () => {
@@ -76,8 +76,8 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
           style={{
-            x: useTransform(mouseX, [0, window.innerWidth], [-10, 10]),
-            y: useTransform(mouseY, [0, window.innerHeight], [-5, 5])
+            x: useTransform(mouseX, [-window.innerWidth/2, window.innerWidth/2], [-10, 10]),
+            y: useTransform(mouseY, [-window.innerHeight/2, window.innerHeight/2], [-5, 5])
           }}
         >
           Hi, My Name is
@@ -91,8 +91,8 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
           style={{
-            x: useTransform(mouseX, [0, window.innerWidth], [-20, 20]),
-            y: useTransform(mouseY, [0, window.innerHeight], [-10, 10])
+            x: useTransform(mouseX, [-window.innerWidth/2, window.innerWidth/2], [-20, 20]),
+            y: useTransform(mouseY, [-window.innerHeight/2, window.innerHeight/2], [-10, 10])
           }}
         >
           <motion.span 
@@ -111,8 +111,8 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
           style={{
-            x: useTransform(mouseX, [0, window.innerWidth], [-30, 30]),
-            y: useTransform(mouseY, [0, window.innerHeight], [-15, 15])
+            x: useTransform(mouseX, [-window.innerWidth/2, window.innerWidth/2], [-30, 30]),
+            y: useTransform(mouseY, [-window.innerHeight/2, window.innerHeight/2], [-15, 15])
           }}
         >
           <motion.span 
@@ -133,8 +133,8 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
           style={{
-            x: useTransform(mouseX, [0, window.innerWidth], [-5, 5]),
-            y: useTransform(mouseY, [0, window.innerHeight], [-3, 3])
+            x: useTransform(mouseX, [-window.innerWidth/2, window.innerWidth/2], [-5, 5]),
+            y: useTransform(mouseY, [-window.innerHeight/2, window.innerHeight/2], [-3, 3])
           }}
         >
           Graphics Designer
