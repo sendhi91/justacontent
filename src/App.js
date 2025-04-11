@@ -37,6 +37,35 @@ const AnimatedRoutes = () => {
             </motion.div>
           } 
         />
+        
+        {/* Route tambahan untuk navigasi langsung */}
+        <Route 
+          path="/projects" 
+          element={
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Projects />
+            </motion.div>
+          } 
+        />
+        
+        <Route 
+          path="/contact" 
+          element={
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Contact />
+            </motion.div>
+          } 
+        />
       </Routes>
     </AnimatePresence>
   );
