@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { motion } from 'framer-motion'; // Tambahkan impor ini
+import { motion } from 'framer-motion';
 import { DarkModeProvider } from './context/DarkModeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -17,19 +17,10 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence mode='wait'>
       <Routes location={location} key={location.pathname}>
-        <Route 
-          path="/" 
-          element={
-            <>
-              <Hero />
-              <About />
-              <Skills />
-              <Projects />
-              <Contact />
-            </>
-          } 
-        />
+        {/* Route untuk halaman utama */}
+        <Route path="/" element={<Hero />} />
         
+        {/* Route untuk alur "Go Deeper" */}
         <Route 
           path="/about" 
           element={
@@ -39,7 +30,10 @@ const AnimatedRoutes = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <About standalone />
+              <About />
+              <Skills />
+              <Projects />
+              <Contact />
             </motion.div>
           } 
         />
