@@ -1,40 +1,18 @@
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../context/DarkModeContext';
-import sen from '../assets/sen.webp'; // Make sure this path is correct
+import sen from '../assets/sen.webp';
 
 const About = () => {
   const { darkMode } = useDarkMode();
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5
-      }
-    }
-  };
 
   return (
     <motion.section
       id="tentang"
       className="relative w-full px-4 py-16 md:px-10 md:py-20 mx-auto min-h-screen"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
       style={{
         background: darkMode
           ? 'linear-gradient(to bottom right, #111827, #1f2937)'
@@ -44,63 +22,87 @@ const About = () => {
       <div className="max-w-7xl mx-auto">
         <motion.h2 
           className="text-white text-4xl md:text-[50px] font-bold mb-10"
-          variants={itemVariants}
+          initial={{ y: -20 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.5 }}
         >
           Tentang <span className="text-blue-400">Saya</span>
         </motion.h2>
         
         <div className="flex flex-col md:flex-row gap-10">
-          <motion.div className="flex-1" variants={itemVariants}>
+          <div className="flex-1">
             <motion.p 
               className="text-blue-400 text-[18px] max-w-3xl leading-[30px] mb-10"
-              variants={itemVariants}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
             >
-              Saya Albertus Sendhi Satriawan, seorang Graphics Designer dengan pengalaman 
-              5 tahun di industri kreatif. Spesialisasi saya meliputi desain branding, 
-              ilustrasi digital, dan tata letak publikasi. Saya percaya bahwa desain 
-              yang baik harus menyampaikan pesan dengan jelas sekaligus memukau secara visual.
+              Saya Albertus Sendhi Satriawan, Graphic Designer profesional dengan 
+              pengalaman lebih dari 5 tahun di industri kreatif. Spesialisasi saya 
+              meliputi desain branding, ilustrasi digital, dan user interface design. 
+              Saya memiliki passion untuk menciptakan desain yang tidak hanya estetik 
+              tetapi juga efektif dalam menyampaikan pesan.
             </motion.p>
             
-            <motion.div className="mt-10" variants={itemVariants}>
-              <h3 className="text-white text-2xl md:text-[25px] font-bold mb-5">Pendidikan</h3>
+            <motion.div 
+              className="mt-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              <h3 className="text-white text-2xl md:text-[25px] font-bold mb-5">Keahlian</h3>
               <ul className="text-blue-400 list-disc pl-5 space-y-2">
-                <motion.li variants={itemVariants}>S1 Desain Komunikasi Visual - Universitas Sebelas Maret (2015-2019)</motion.li>
-                <motion.li variants={itemVariants}>SMA Negeri 1 Semarang - Jurusan IPA (2012-2015)</motion.li>
+                <li>Adobe Creative Suite (Photoshop, Illustrator, InDesign)</li>
+                <li>UI/UX Design (Figma, Adobe XD)</li>
+                <li>Brand Identity Development</li>
+                <li>Digital Illustration</li>
+                <li>Typography & Layout Design</li>
               </ul>
             </motion.div>
             
-            <motion.div className="mt-10" variants={itemVariants}>
-              <h3 className="text-white text-2xl md:text-[25px] font-bold mb-5">Pengalaman</h3>
+            <motion.div 
+              className="mt-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+            >
+              <h3 className="text-white text-2xl md:text-[25px] font-bold mb-5">Pendidikan</h3>
               <ul className="text-blue-400 list-disc pl-5 space-y-2">
-                <motion.li variants={itemVariants}>Senior Graphic Designer - PT Kreasi Digital (2021-sekarang)</motion.li>
-                <motion.li variants={itemVariants}>Graphic Designer - Studio Visual Semarang (2019-2021)</motion.li>
+                <li>S1 Desain Komunikasi Visual - Universitas Sebelas Maret (2015-2019)</li>
+                <li>SMA Negeri 1 Semarang - Jurusan IPA (2012-2015)</li>
               </ul>
             </motion.div>
-          </motion.div>
+            
+            <motion.div 
+              className="mt-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
+              <h3 className="text-white text-2xl md:text-[25px] font-bold mb-5">Pengalaman</h3>
+              <ul className="text-blue-400 list-disc pl-5 space-y-2">
+                <li>Senior Graphic Designer - PT Kreasi Digital (2021-sekarang)</li>
+                <li>Graphic Designer - Studio Visual Semarang (2019-2021)</li>
+                <li>Freelance Designer (2017-2019)</li>
+              </ul>
+            </motion.div>
+          </div>
           
           <motion.div 
             className="flex-1 flex justify-center items-center"
-            variants={itemVariants}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
           >
             <div className="w-[250px] h-[250px] md:w-[400px] md:h-[400px] relative">
-              <motion.div 
-                className="w-full h-full rounded-2xl border-2 border-blue-400 overflow-hidden"
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-              >
+              <div className="w-full h-full rounded-2xl border-2 border-blue-400 overflow-hidden">
                 <img 
                   src={sen} 
                   alt="Albertus Sendhi Satriawan"
                   className="w-full h-full object-cover"
                 />
-              </motion.div>
-              <motion.div 
-                className="absolute inset-0 rounded-2xl border-2 border-transparent bg-black/20"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-              />
+              </div>
+              <div className="absolute inset-0 rounded-2xl border-2 border-transparent bg-black/20"></div>
             </div>
           </motion.div>
         </div>
