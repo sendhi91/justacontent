@@ -70,7 +70,7 @@ const About = () => {
             </motion.div>
             
             <motion.div className="mt-10" variants={itemVariants}>
-              <h3 className="text-white text-2xl md:text-[25px] font-bold mb-5">Pengalaman</h3>
+              <h3 className="text-white text-2xl md:text-[25px] font-bold mb-5">Experience</h3>
               <ul className="text-blue-400 list-disc pl-5 space-y-2">
                 <motion.li variants={itemVariants}>edited (2021-sekarang)</motion.li>
                 <motion.li variants={itemVariants}>edited (2019-2021)</motion.li>
