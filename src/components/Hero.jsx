@@ -7,15 +7,13 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleGoDeeper = () => {
-    // Smooth exit animation before navigation
     document.querySelector('.hero-content').style.opacity = '0';
     document.querySelector('.hero-content').style.transform = 'translateY(20px)';
     
     setTimeout(() => {
       navigate('/about');
-      // Scroll to top after navigation
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 500); // Match this duration with your transition
+    }, 500);
   };
 
   return (
@@ -37,41 +35,73 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.p 
-            className="text-lg md:text-xl text-blue-600 dark:text-blue-400 mb-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            className={`text-lg md:text-xl mb-2 ${
+              darkMode ? 'text-white' : 'text-gray-800'
+            }`}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ 
+              delay: 0.2,
+              type: 'spring',
+              stiffness: 100,
+              damping: 10
+            }}
           >
-            Hi My Name is
+            Hi, My Name is
           </motion.p>
           
           <motion.h1 
-            className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-2"
-            initial={{ opacity: 0, y: 10 }}
+            className="text-4xl md:text-6xl font-bold mb-2"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ 
+              delay: 0.3,
+              type: 'spring',
+              stiffness: 100,
+              damping: 10
+            }}
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            <motion.span 
+              className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            >
               Albertus Sendhi
-            </span>
+            </motion.span>
           </motion.h1>
           
           <motion.h1 
-            className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-4"
-            initial={{ opacity: 0, y: 10 }}
+            className="text-4xl md:text-6xl font-bold mb-4"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ 
+              delay: 0.35,
+              type: 'spring',
+              stiffness: 100,
+              damping: 10
+            }}
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+            <motion.span 
+              className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            >
               Satriawan
-            </span>
+            </motion.span>
           </motion.h1>
           
           <motion.h2 
-            className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8"
+            className={`text-xl md:text-2xl mb-8 ${
+              darkMode ? 'text-gray-300' : 'text-gray-600'
+            }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ 
+              delay: 0.5,
+              type: 'spring',
+              stiffness: 50,
+              damping: 10
+            }}
           >
             Graphics Designer
           </motion.h2>
@@ -80,7 +110,13 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ 
+            duration: 0.8, 
+            delay: 0.6,
+            type: 'spring',
+            stiffness: 100,
+            damping: 10
+          }}
           className="mt-12"
         >
           <motion.button
