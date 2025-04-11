@@ -1,0 +1,57 @@
+.glitch-container {
+    width: 100%;
+    text-align: center;
+    padding: 60px 0;
+    background: #0f172a; /* gelap, kayak cyber */
+  }
+  
+  .glitch-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #00f0ff;
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+    animation: glitch 1s infinite;
+  }
+  
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    color: #ff00c8;
+    clip: rect(0, 0, 0, 0);
+  }
+  
+  .glitch-text::before {
+    animation: glitchTop 2s infinite linear alternate-reverse;
+  }
+  
+  .glitch-text::after {
+    animation: glitchBottom 2s infinite linear alternate-reverse;
+  }
+  
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+  
+  @keyframes glitchTop {
+    0% { clip: rect(0, 9999px, 0, 0); }
+    10% { clip: rect(0, 9999px, 100%, 0); transform: translate(-2px, -2px); }
+    20% { clip: rect(0, 9999px, 0, 0); transform: translate(0, 0); }
+  }
+  
+  @keyframes glitchBottom {
+    0% { clip: rect(0, 9999px, 0, 0); }
+    10% { clip: rect(100%, 9999px, 100%, 0); transform: translate(2px, 2px); }
+    20% { clip: rect(0, 9999px, 0, 0); transform: translate(0, 0); }
+  }
+  
