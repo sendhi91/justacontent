@@ -20,7 +20,7 @@ const Projects = () => {
             <span className="bg-blue-600 px-3 py-1 rounded-full text-sm">PowerPoint</span>
           </div>
           <button
-            onClick={() => navigate('/presentation')}
+            onClick={() => navigate('/presentation', { state: { from: 'projects' } })}
             className="border px-4 py-2 rounded-md hover:bg-blue-600"
           >
             See More
@@ -37,7 +37,7 @@ const Projects = () => {
             <span className="bg-blue-600 px-3 py-1 rounded-full text-sm">Canva</span>
           </div>
           <button
-            onClick={() => navigate('/ebook')}
+            onClick={() => navigate('/ebook', { state: { from: 'projects' } })}
             className="border px-4 py-2 rounded-md hover:bg-blue-600"
           >
             See More
