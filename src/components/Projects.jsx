@@ -74,7 +74,50 @@ const Projects = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              {/* ... rest of your component remains the same ... */}
+              <div className="w-full h-48 bg-gray-700 rounded-xl mb-5 overflow-hidden">
+                {project.image ? (
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+                    <span className="text-gray-400">Preview Image</span>
+                  </div>
+                )}
+              </div>
+              
+              <h3 className="text-white text-xl md:text-2xl font-bold mb-3">{project.title}</h3>
+              <p className="text-gray-300 mb-4">{project.description}</p>
+              
+              <div className="flex flex-wrap gap-2 mb-5">
+                {project.tags.map((tag, i) => (
+                  <span 
+                    key={i} 
+                    className="text-white bg-blue-600 px-3 py-1 rounded-full text-xs md:text-sm"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              
+              <div className="flex gap-3 mt-auto">
+                <ProjectButton 
+                  href={project.source} 
+                  variant="primary"
+                  disabled={!project.source}
+                >
+                  Kode Sumber
+                </ProjectButton>
+                <ProjectButton 
+                  href={project.visit} 
+                  variant="outline"
+                  disabled={!project.visit}
+                >
+                  Lihat Demo
+                </ProjectButton>
+              </div>
             </motion.div>
           ))}
         </div>
