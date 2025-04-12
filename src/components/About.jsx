@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../context/DarkModeContext';
-import sen from '../assets/sen.webp'; // Make sure this path is correct
+import sen from '../assets/sen.webp';
 
-const About = () => {
+const About = ({ onSeeSkillsClick }) => {
   const { darkMode } = useDarkMode();
 
   // Animation variants
@@ -31,7 +31,7 @@ const About = () => {
   return (
     <motion.section
       id="tentang"
-      className="relative w-full px-4 py-16 md:px-10 md:py-20 mx-auto min-h-screen"
+      className="relative w-full px-4 py-16 md:px-10 md:py-20 mx-auto min-h-[80vh]"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -55,11 +55,11 @@ const About = () => {
               className="text-blue-400 text-[18px] max-w-3xl leading-[30px] mb-10"
               variants={itemVariants}
             >
-               I am Albertus Sendhi Satriawan,
-               a Graphics Designer with 5 years of experience in the creative industry.
-               My specialties include branding design, digital illustration, 
-               and publication layout. I believe that good design should convey 
-               a message clearly while being visually stunning.
+              I am Albertus Sendhi Satriawan,
+              a Graphics Designer with 5 years of experience in the creative industry.
+              My specialties include branding design, digital illustration, 
+              and publication layout. I believe that good design should convey 
+              a message clearly while being visually stunning.
             </motion.p>
             
             <motion.div className="mt-10" variants={itemVariants}>
@@ -75,6 +75,21 @@ const About = () => {
                 <motion.li variants={itemVariants}>edited (2021-sekarang)</motion.li>
                 <motion.li variants={itemVariants}>edited (2019-2021)</motion.li>
               </ul>
+            </motion.div>
+
+            {/* Scroll to Skills Button */}
+            <motion.div 
+              className="mt-12 text-center"
+              variants={itemVariants}
+            >
+              <motion.button
+                onClick={onSeeSkillsClick}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-300 shadow-lg"
+              >
+                View My Skills ↓
+              </motion.button>
             </motion.div>
           </motion.div>
           
