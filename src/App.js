@@ -12,6 +12,16 @@ import Footer from './components/Footer';
 import Presentation from './components/Presentation';
 import Ebook from './components/Ebook';
 
+const AboutPage = () => {
+  return (
+    <>
+      <About />
+      <Skills />
+      <Contact />
+    </>
+  );
+};
+
 const AnimatedRoutes = () => {
   const location = useLocation();
 
@@ -19,9 +29,8 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Hero />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/presentation" element={<Presentation />} />
         <Route path="/ebook" element={<Ebook />} />
       </Routes>
