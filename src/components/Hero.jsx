@@ -1,31 +1,32 @@
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 const Hero = () => {
   const { darkMode } = useDarkMode();
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
   
-  // Mouse position tracking
+  // Optimized mouse position tracking with useMemo
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     mouseX.set(e.clientX - window.innerWidth/2);
     mouseY.set(e.clientY - window.innerHeight/2);
-  };
+  }, [mouseX, mouseY]);
 
-  const handleGoDeeper = () => {
+  // Smoother navigation with transition completion check
+  const handleGoDeeper = useCallback(() => {
     setIsExiting(true);
     setTimeout(() => {
-      navigate('/about');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1000);
-  };
+      navigate('/about', { state: { fromHero: true } });
+      window.scrollTo(0, 0);
+    }, 800); // Matches animation duration
+  }, [navigate]);
 
-  // Text animation variants
+  // Optimized text animation variants
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i) => ({
@@ -34,16 +35,28 @@ const Hero = () => {
       transition: {
         delay: i * 0.1,
         type: 'spring',
-        stiffness: 100,
-        damping: 10
+        stiffness: 120,
+        damping: 12
       }
     })
   };
 
+  // Memoized transforms for better performance
+  const textXTransform = useTransform(
+    mouseX, 
+    [-window.innerWidth/2, window.innerHeight/2], 
+    [-30, 30]
+  );
+  const textYTransform = useTransform(
+    mouseY,
+    [-window.innerHeight/2, window.innerHeight/2],
+    [-15, 15]
+  );
+
   return (
     <motion.section
       id="home"
-      className="min-h-screen flex items-center justify-center px-4 transition-colors duration-300 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
       style={{
         background: darkMode 
           ? 'linear-gradient(to bottom right, #111827, #1f2937)'
@@ -51,22 +64,35 @@ const Hero = () => {
       }}
       onMouseMove={handleMouseMove}
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      animate={{ opacity: 1 }}
+      exit={{ 
+        opacity: 0, 
+        transition: { 
+          duration: 0.5,
+          when: "afterChildren" 
+        } 
+      }}
     >
-      {/* Animated background overlay for transition */}
+      {/* Enhanced transition overlay with better performance */}
       <AnimatePresence>
         {isExiting && (
           <motion.div
             className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 z-50"
             initial={{ clipPath: 'circle(0% at 50% 50%)' }}
-            animate={{ clipPath: 'circle(150% at 50% 50%)' }}
-            transition={{ duration: 1, ease: [0.87, 0, 0.13, 1] }}
+            animate={{ 
+              clipPath: 'circle(150% at 50% 50%)',
+              transition: { 
+                duration: 0.8, 
+                ease: [0.83, 0, 0.17, 1] 
+              }
+            }}
+            exit={{ opacity: 0 }}
           />
         )}
       </AnimatePresence>
 
       <div className="hero-content text-center max-w-4xl mx-auto relative z-10">
-        {/* Hi, My Name is - with mouse parallax */}
+        {/* Name introduction with optimized parallax */}
         <motion.p 
           className={`text-lg md:text-xl mb-2 ${
             darkMode ? 'text-white' : 'text-gray-800'
@@ -76,14 +102,14 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
           style={{
-            x: useTransform(mouseX, [-window.innerWidth/2, window.innerWidth/2], [-10, 10]),
-            y: useTransform(mouseY, [-window.innerHeight/2, window.innerHeight/2], [-5, 5])
+            x: useTransform(mouseX, [-200, 200], [-10, 10]),
+            y: useTransform(mouseY, [-200, 200], [-5, 5])
           }}
         >
           Hi, My Name is
         </motion.p>
         
-        {/* Albertus Sendhi - with stronger parallax */}
+        {/* Main name with stronger parallax effect */}
         <motion.h1 
           className="text-4xl md:text-6xl font-bold mb-2"
           custom={0.3}
@@ -91,19 +117,20 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
           style={{
-            x: useTransform(mouseX, [-window.innerWidth/2, window.innerWidth/2], [-20, 20]),
-            y: useTransform(mouseY, [-window.innerHeight/2, window.innerHeight/2], [-10, 10])
+            x: textXTransform,
+            y: textYTransform
           }}
         >
           <motion.span 
             className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 block"
             whileHover={{ scale: 1.02 }}
+            transition={{ type: 'spring', stiffness: 300 }}
           >
             Albertus Sendhi
           </motion.span>
         </motion.h1>
         
-        {/* Satriawan - with strongest parallax */}
+        {/* Last name with strongest parallax */}
         <motion.h1 
           className="text-4xl md:text-6xl font-bold mb-4"
           custom={0.4}
@@ -111,19 +138,20 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
           style={{
-            x: useTransform(mouseX, [-window.innerWidth/2, window.innerWidth/2], [-30, 30]),
-            y: useTransform(mouseY, [-window.innerHeight/2, window.innerHeight/2], [-15, 15])
+            x: useTransform(textXTransform, [-30, 30], [-40, 40]),
+            y: useTransform(textYTransform, [-15, 15], [-20, 20])
           }}
         >
           <motion.span 
             className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 block"
             whileHover={{ scale: 1.02 }}
+            transition={{ type: 'spring', stiffness: 300 }}
           >
             Satriawan
           </motion.span>
         </motion.h1>
         
-        {/* Graphics Designer - subtle parallax */}
+        {/* Title with subtle parallax */}
         <motion.h2 
           className={`text-xl md:text-2xl mb-8 ${
             darkMode ? 'text-gray-300' : 'text-gray-600'
@@ -133,14 +161,14 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
           style={{
-            x: useTransform(mouseX, [-window.innerWidth/2, window.innerWidth/2], [-5, 5]),
-            y: useTransform(mouseY, [-window.innerHeight/2, window.innerHeight/2], [-3, 3])
+            x: useTransform(mouseX, [-200, 200], [-5, 5]),
+            y: useTransform(mouseY, [-200, 200], [-3, 3])
           }}
         >
           Graphics Designer
         </motion.h2>
 
-        {/* Go Deeper button */}
+        {/* Enhanced CTA button */}
         <motion.div
           custom={0.6}
           variants={textVariants}
@@ -153,13 +181,22 @@ const Hero = () => {
               scale: 1.05,
               boxShadow: darkMode 
                 ? '0 10px 25px -5px rgba(59, 130, 246, 0.4)'
-                : '0 10px 25px -5px rgba(29, 78, 216, 0.4)'
+                : '0 10px 25px -5px rgba(29, 78, 216, 0.4)',
+              transition: { duration: 0.3 }
             }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ 
+              scale: 0.95,
+              transition: { duration: 0.2 }
+            }}
             onClick={handleGoDeeper}
-            className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg font-medium text-lg transition-all shadow-lg"
+            className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden"
           >
-            Go Deeper
+            <span className="relative z-10">Go Deeper</span>
+            <motion.span
+              className="absolute inset-0 bg-gradient-to-r from-blue-700 to-purple-700 opacity-0"
+              whileHover={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
           </motion.button>
         </motion.div>
       </div>
