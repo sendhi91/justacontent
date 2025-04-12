@@ -28,23 +28,21 @@ const About = () => {
     }
   };
 
-  // Scroll to skills function without polyfill
+  // Improved scrollToSkills function
   const scrollToSkills = () => {
     const skillsSection = document.getElementById('skills');
     if (skillsSection) {
-      // Calculate position accounting for navbar height
+      // Calculate position accounting for fixed navbar height
       const navbarHeight = 80;
-      const targetPosition = skillsSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+      const offsetPosition = skillsSection.offsetTop - navbarHeight;
       
-      // Try smooth scroll, fallback to instant scroll if not supported
-      try {
+      // Using requestAnimationFrame for smoother animation
+      requestAnimationFrame(() => {
         window.scrollTo({
-          top: targetPosition,
+          top: offsetPosition,
           behavior: 'smooth'
         });
-      } catch (e) {
-        window.scrollTo(0, targetPosition);
-      }
+      });
     }
   };
 
