@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../context/DarkModeContext';
 import sen from '../assets/sen.webp';
+import { useEffect } from 'react';
 
-const About = ({ onSeeSkillsClick }) => {
+const About = () => {
   const { darkMode } = useDarkMode();
 
   // Animation variants
@@ -27,6 +28,29 @@ const About = ({ onSeeSkillsClick }) => {
       }
     }
   };
+
+  // Scroll to skills function
+  const scrollToSkills = () => {
+    const skillsSection = document.getElementById('skills');
+    if (skillsSection) {
+      const navbarHeight = 80; // Adjust based on your navbar height
+      const targetPosition = skillsSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Add smooth scroll polyfill if needed
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      import('smoothscroll-polyfill').then((module) => {
+        module.polyfill();
+      });
+    }
+  }, []);
 
   return (
     <motion.section
@@ -83,7 +107,7 @@ const About = ({ onSeeSkillsClick }) => {
               variants={itemVariants}
             >
               <motion.button
-                onClick={onSeeSkillsClick}
+                onClick={scrollToSkills}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-300 shadow-lg"
