@@ -4,13 +4,10 @@ import { AnimatePresence } from 'framer-motion';
 import { DarkModeProvider } from './context/DarkModeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
 import Projects from './components/Projects';
+import Footer from './components/Footer';
 import Presentation from './components/Presentation';
 import Ebook from './components/Ebook';
-import Skills from './components/Skills';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -25,7 +22,6 @@ const App = () => {
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/presentation" element={<Presentation />} />
                 <Route path="/ebook" element={<Ebook />} />
-                {/* Add other routes as needed */}
               </Routes>
             </AnimatePresence>
           </main>
