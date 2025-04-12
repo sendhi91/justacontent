@@ -9,7 +9,7 @@ const skills = [
 
 const Skills = () => {
   return (
-    <section id="keahlian" className="relative w-full px-10 py-20 mx-auto bg-tertiary">
+    <section id="skills" className="relative w-full px-10 py-20 mx-auto bg-tertiary">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-white text-[50px] font-bold mb-10">
           {/* <span className="text-secondary">My Skill</span> */}

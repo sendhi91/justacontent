@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { useDarkMode } from '../context/DarkModeContext';
 import sen from '../assets/sen.webp';
-import { useEffect } from 'react';
 
 const About = () => {
   const { darkMode } = useDarkMode();
@@ -29,28 +28,25 @@ const About = () => {
     }
   };
 
-  // Scroll to skills function
+  // Scroll to skills function without polyfill
   const scrollToSkills = () => {
     const skillsSection = document.getElementById('skills');
     if (skillsSection) {
-      const navbarHeight = 80; // Adjust based on your navbar height
+      // Calculate position accounting for navbar height
+      const navbarHeight = 80;
       const targetPosition = skillsSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
       
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
+      // Try smooth scroll, fallback to instant scroll if not supported
+      try {
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      } catch (e) {
+        window.scrollTo(0, targetPosition);
+      }
     }
   };
-
-  // Add smooth scroll polyfill if needed
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      import('smoothscroll-polyfill').then((module) => {
-        module.polyfill();
-      });
-    }
-  }, []);
 
   return (
     <motion.section
