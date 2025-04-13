@@ -1,0 +1,25 @@
+/* Style dasar flipbook */
+.flipbook-container {
+  margin: 20px auto;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.custom-flipbook {
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.page {
+  background-color: white;
+  color: #333;
+  padding: 20px;
+  border: 1px solid #eee;
+}
+
+.page-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
