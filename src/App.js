@@ -9,6 +9,8 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Presentation from './pages/presentation';
+import Ebook from './pages/ebook';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -21,6 +23,8 @@ const AnimatedRoutes = () => {
         <Route path="/skills" element={<Skills />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/presentation" element={<Presentation />} />
+        <Route path="/ebook" element={<Ebook />} />
       </Routes>
     </AnimatePresence>
   );
