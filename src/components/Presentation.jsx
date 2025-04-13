@@ -86,18 +86,7 @@ const Presentation = () => {
 
   useEffect(() => {
     if (!location.state?.from) {
-      navigate('/projects', { 
-        replace: true,
-        state: { 
-          from: 'presentation',
-          returnPath: '/projects'
-        }
-      });
-    }
-
-    // Restore scroll position if coming back
-    if (location.state?.scrollPosition) {
-      window.scrollTo(0, location.state.scrollPosition);
+      navigate('/projects', { replace: true });
     }
   }, [location, navigate]);
 
