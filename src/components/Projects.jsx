@@ -7,7 +7,7 @@ const Projects = () => {
   const navigate = useNavigate();
   const { darkMode } = useDarkMode();
 
-  // Project data
+  // Project data with absolute paths for reliability
   const projects = [
     {
       id: 1,
@@ -15,7 +15,7 @@ const Projects = () => {
       description: "Professional presentation designs for various purposes with modern layouts and engaging visuals.",
       image: "/presentation.jpg",
       placeholder: "/placeholder-design.jpg",
-      path: "/presentation",
+      path: "/presentation", // Ensure this matches your route exactly
       tags: ["Canva", "PowerPoint", "Keynote"],
       buttonText: "View Presentations"
     },
@@ -25,32 +25,50 @@ const Projects = () => {
       description: "Beautiful ebook designs optimized for digital marketing and readability across devices.",
       image: "/ebook.jpg",
       placeholder: "/placeholder-design.jpg",
-      path: "/ebook",
+      path: "/ebook", // Ensure this matches your route exactly
       tags: ["Adobe InDesign", "Canva", "Illustrator"],
       buttonText: "View Ebooks"
     }
   ];
 
-  // Navigation handler with enhanced reliability
+  // Robust navigation handler with error boundaries
   const handleNavigation = useCallback((path) => {
+    // Normalize path to ensure consistency
     const normalizedPath = path.startsWith('/') ? path : `/${path}`;
     
+    // Enhanced state management
+    const navigationState = {
+      from: 'projects',
+      timestamp: Date.now(),
+      previousPath: window.location.pathname,
+      preserveScroll: true
+    };
+
     try {
       navigate(normalizedPath, { 
-        state: { 
-          fromProjects: true,
-          timestamp: Date.now(),
-          previousPath: window.location.pathname
-        }
+        state: navigationState,
+        replace: false
       });
     } catch (error) {
-      console.error("Navigation failed:", error);
-      // Fallback to home if navigation fails
-      navigate('/', { replace: true });
+      console.error("Navigation error:", error);
+      // Fallback strategies
+      if (normalizedPath.includes('presentation')) {
+        navigate('/presentation', { 
+          replace: true,
+          state: navigationState
+        });
+      } else if (normalizedPath.includes('ebook')) {
+        navigate('/ebook', { 
+          replace: true,
+          state: navigationState
+        });
+      } else {
+        navigate('/', { replace: true });
+      }
     }
   }, [navigate]);
 
-  // Animation variants
+  // Animation variants (unchanged)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -91,7 +109,7 @@ const Projects = () => {
         darkMode ? 'bg-gray-900' : 'bg-gray-50'
       }`}
     >
-      {/* Title Section */}
+      {/* Title Section (unchanged) */}
       <motion.div 
         className="mb-12 text-center"
         variants={{
@@ -137,7 +155,7 @@ const Projects = () => {
             }`}
             custom={index}
           >
-            {/* Project Image */}
+            {/* Project Image (unchanged) */}
             <motion.div 
               whileHover={{ scale: 1.02 }}
               className="relative h-56 sm:h-64 mb-6 rounded-xl overflow-hidden"
@@ -169,7 +187,7 @@ const Projects = () => {
                 {project.description}
               </p>
               
-              {/* Tags */}
+              {/* Tags (unchanged) */}
               <div className="flex flex-wrap gap-2 mb-6 mt-4">
                 {project.tags.map((tag) => (
                   <motion.span
@@ -186,10 +204,18 @@ const Projects = () => {
                 ))}
               </div>
               
-              {/* View Button - Now with guaranteed navigation */}
+              {/* View Button - Enhanced with click and keyboard support */}
               <motion.button
-                onClick={() => handleNavigation(project.path)}
-                onKeyDown={(e) => e.key === 'Enter' && handleNavigation(project.path)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavigation(project.path);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleNavigation(project.path);
+                  }
+                }}
                 whileHover={{ 
                   scale: 1.05,
                   background: "linear-gradient(to right, #3b82f6, #2563eb)"
@@ -197,6 +223,7 @@ const Projects = () => {
                 whileTap={{ scale: 0.98 }}
                 className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg font-medium flex items-center justify-center gap-2 text-white relative overflow-hidden group"
                 aria-label={`View ${project.title}`}
+                role="button"
               >
                 <span className="relative z-10">{project.buttonText}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -212,7 +239,7 @@ const Projects = () => {
         ))}
       </motion.div>
 
-      {/* Back Button */}
+      {/* Back Button (unchanged) */}
       <motion.div
         className="mt-12 text-center"
         variants={itemVariants}
