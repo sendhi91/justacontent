@@ -17,7 +17,7 @@ const AnimatedRoutes = () => {
 
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
+      <Routes location={location} key={location.pathname.split('/')[1] || 'home'}>
         <Route path="/" element={<Hero />} />
         <Route path="/about" element={<About />} />
         <Route path="/skills" element={<Skills />} />
@@ -26,12 +26,18 @@ const AnimatedRoutes = () => {
         <Route 
           path="/presentation" 
           element={<Presentation />} 
-          state={{ from: 'projects' }}
+          state={{ 
+            from: 'projects',
+            background: location // Preserve background location for animations
+          }}
         />
         <Route 
           path="/ebook" 
           element={<Ebook />} 
-          state={{ from: 'projects' }}
+          state={{ 
+            from: 'projects',
+            background: location // Preserve background location for animations
+          }}
         />
         <Route path="*" element={<Hero />} />
       </Routes>
