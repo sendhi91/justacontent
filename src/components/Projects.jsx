@@ -33,10 +33,16 @@ const Projects = () => {
 
   // Optimized navigation handler
   const handleNavigation = useCallback((path) => {
+    try{
     navigate(path, { 
       state: { fromProjects: true },
       replace: false 
     });
+  } catch (error) {
+    console.error("Navigation error:", error);
+    // Fallback jika route tidak ditemukan
+    navigate('/');
+  }
   }, [navigate]);
 
   // Animation variants for better reusability
