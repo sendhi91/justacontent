@@ -11,6 +11,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Presentation from './components/Presentation';
 import Ebook from './components/Ebook';
+import FlipbookViewer from './components/FlipbookViewer';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -28,7 +29,7 @@ const AnimatedRoutes = () => {
           element={<Presentation />} 
           state={{ 
             from: 'projects',
-            background: location // Preserve background location for animations
+            background: location
           }}
         />
         <Route 
@@ -36,7 +37,15 @@ const AnimatedRoutes = () => {
           element={<Ebook />} 
           state={{ 
             from: 'projects',
-            background: location // Preserve background location for animations
+            background: location
+          }}
+        />
+        <Route 
+          path="/flipbook" 
+          element={<FlipbookViewer />} 
+          state={{ 
+            from: 'projects',
+            background: location
           }}
         />
         <Route path="*" element={<Hero />} />
