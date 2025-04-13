@@ -39,7 +39,7 @@ const Presentation = () => {
   ];
 
   useEffect(() => {
-    if (!location.state?.from) {
+    if (!location.state?.fromProjects) {
       navigate('/projects', { replace: true });
     }
   }, [location, navigate]);

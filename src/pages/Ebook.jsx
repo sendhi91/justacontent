@@ -75,8 +75,8 @@ const Ebook = () => {
   const allTags = ['all', ...new Set(ebookData.flatMap(ebook => ebook.tags))];
 
   useEffect(() => {
-    if (location.state?.from !== 'projects') {
-      navigate('/', { replace: true });
+    if (!location.state?.fromProjects) {
+      navigate('/projects', { replace: true });
     }
   }, [location, navigate]);
 
