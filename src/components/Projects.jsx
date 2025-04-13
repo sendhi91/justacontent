@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useCallback } from 'react';
 import { useDarkMode } from '../context/DarkModeContext';
 
@@ -7,7 +7,7 @@ const Projects = () => {
   const navigate = useNavigate();
   const { darkMode } = useDarkMode();
 
-  // Optimized project data with placeholder handling
+  // Project data
   const projects = [
     {
       id: 1,
@@ -31,25 +31,26 @@ const Projects = () => {
     }
   ];
 
-  // Optimized navigation handler
+  // Navigation handler with enhanced reliability
   const handleNavigation = useCallback((path) => {
+    const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    
     try {
-      navigate(path, { 
-        state: { fromProjects: true },
-        replace: false 
+      navigate(normalizedPath, { 
+        state: { 
+          fromProjects: true,
+          timestamp: Date.now(),
+          previousPath: window.location.pathname
+        }
       });
     } catch (error) {
-      console.error("Navigation error:", error);
-      // More specific fallback
-      if (path.includes('presentation')) {
-        navigate('/projects');
-      } else {
-        navigate('/');
-      }
+      console.error("Navigation failed:", error);
+      // Fallback to home if navigation fails
+      navigate('/', { replace: true });
     }
   }, [navigate]);
 
-  // Animation variants for better reusability
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -185,15 +186,17 @@ const Projects = () => {
                 ))}
               </div>
               
-              {/* View Button */}
+              {/* View Button - Now with guaranteed navigation */}
               <motion.button
                 onClick={() => handleNavigation(project.path)}
+                onKeyDown={(e) => e.key === 'Enter' && handleNavigation(project.path)}
                 whileHover={{ 
                   scale: 1.05,
                   background: "linear-gradient(to right, #3b82f6, #2563eb)"
                 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg font-medium flex items-center justify-center gap-2 text-white relative overflow-hidden group"
+                aria-label={`View ${project.title}`}
               >
                 <span className="relative z-10">{project.buttonText}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
