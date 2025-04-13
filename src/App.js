@@ -23,8 +23,17 @@ const AnimatedRoutes = () => {
         <Route path="/skills" element={<Skills />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/presentation" element={<Presentation />} />
-        <Route path="/ebook" element={<Ebook />} />
+        <Route 
+          path="/presentation" 
+          element={<Presentation />} 
+          state={{ from: 'projects' }}
+        />
+        <Route 
+          path="/ebook" 
+          element={<Ebook />} 
+          state={{ from: 'projects' }}
+        />
+        <Route path="*" element={<Hero />} />
       </Routes>
     </AnimatePresence>
   );
