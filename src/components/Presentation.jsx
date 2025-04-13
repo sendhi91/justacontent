@@ -65,6 +65,16 @@ const Presentation = () => {
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Enhanced navigation handler with state preservation
+  const handleBackNavigation = () => {
+    navigate(location.state?.returnPath || '/projects', {
+      state: {
+        from: 'presentation',
+        scrollPosition: window.scrollY
+      }
+    });
+  };
+
   const filteredPresentations = presentationData.filter(presentation => {
     const matchesFilter = filter === 'all' || presentation.tags.includes(filter);
     const matchesSearch = presentation.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -76,7 +86,18 @@ const Presentation = () => {
 
   useEffect(() => {
     if (!location.state?.from) {
-      navigate('/projects', { replace: true });
+      navigate('/projects', { 
+        replace: true,
+        state: { 
+          from: 'presentation',
+          returnPath: '/projects'
+        }
+      });
+    }
+
+    // Restore scroll position if coming back
+    if (location.state?.scrollPosition) {
+      window.scrollTo(0, location.state.scrollPosition);
     }
   }, [location, navigate]);
 
@@ -230,7 +251,7 @@ const Presentation = () => {
         className="text-center"
       >
         <motion.button
-          onClick={() => navigate('/projects')}
+          onClick={handleBackNavigation}
           whileHover={{ 
             scale: 1.05,
             background: "linear-gradient(to right, #0891b2, #155e75)"

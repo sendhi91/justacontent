@@ -65,6 +65,16 @@ const Ebook = () => {
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Enhanced navigation handler with state preservation
+  const handleBackNavigation = () => {
+    navigate(location.state?.returnPath || '/projects', {
+      state: {
+        from: 'ebook',
+        scrollPosition: window.scrollY
+      }
+    });
+  };
+
   const filteredEbooks = ebookData.filter(ebook => {
     const matchesFilter = filter === 'all' || ebook.tags.includes(filter);
     const matchesSearch = ebook.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -76,7 +86,18 @@ const Ebook = () => {
 
   useEffect(() => {
     if (!location.state?.from) {
-      navigate('/projects', { replace: true });
+      navigate('/projects', { 
+        replace: true,
+        state: { 
+          from: 'ebook',
+          returnPath: '/projects'
+        }
+      });
+    }
+
+    // Restore scroll position if coming back
+    if (location.state?.scrollPosition) {
+      window.scrollTo(0, location.state.scrollPosition);
     }
   }, [location, navigate]);
 
@@ -86,7 +107,7 @@ const Ebook = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="text-white pt-28 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto min-h-screen" // Added pt-28 for navbar spacing
+      className="text-white pt-28 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto min-h-screen"
     >
       {/* Header Section */}
       <motion.header
@@ -230,7 +251,7 @@ const Ebook = () => {
         className="text-center"
       >
         <motion.button
-          onClick={() => navigate('/projects')}
+          onClick={handleBackNavigation}
           whileHover={{ 
             scale: 1.05,
             background: "linear-gradient(to right, #0d9488, #115e59)"
