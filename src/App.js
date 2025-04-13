@@ -9,8 +9,8 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import Presentation from './pages/presentation';
-import Ebook from './pages/ebook';
+import Presentation from './components/Presentation';
+import Ebook from './components/Ebook';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
