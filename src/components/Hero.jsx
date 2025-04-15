@@ -201,7 +201,7 @@ const Hero = () => {
               onClick={handleGoDeeper}
               className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden ${darkMode
                 ? 'bg-gradient-to-r from-orange-700 to-orange-600'
-                : 'bg-gradient-to-r from-blue-500 to-purple-600'
+                : 'bg-gradient-to-r from-blue-900 to-purple-600'
                 }`}
             >
               <span className="relative z-10">Go Deeper</span>
@@ -241,18 +241,18 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
             />
 
-            {/* Decorative Element */}
+            {/* Decorative Element*/}
             <motion.div
-              className="absolute -bottom-4 -right-4 w-24 h-24 bg-purple-600 rounded-full mix-blend-multiply opacity-70"
-              animate={{
-                scale: [1, 1.1, 1],
-                rotate: [0, 10, 0]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 5,
-                ease: "easeInOut"
-              }}
+              // className="absolute -bottom-4 -right-4 w-24 h-24 bg-purple-600 rounded-full mix-blend-multiply opacity-70"
+              // animate={{
+              //   scale: [1, 1.1, 1],
+              //   rotate: [0, 10, 0]
+              // }}
+              // transition={{
+              //   repeat: Infinity,
+              //   duration: 5,
+              //   ease: "easeInOut"
+              // }}
             />
           </div>
         </motion.div>

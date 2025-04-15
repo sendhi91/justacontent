@@ -69,19 +69,20 @@ const Skills = () => {
       variants={containerVariants}
       style={{
         background: darkMode
-          ? 'linear-gradient(to bottom right, #111827, #1f2937)'
-          : 'linear-gradient(to bottom right, #f0f9ff, #e0f2fe)'
+  ? 'linear-gradient(to right, #111827 0%, #111827 40%, #1f2937 60%, #1f2937 100%)'
+  : 'linear-gradient(to right, #ffffff 0%, #ffffff 40%, #6D86E8 60%, #6D86E8 100%)'
       }}
     >
       <div className="max-w-7xl mx-auto">
-        <motion.h2 
-          className="text-4xl md:text-[50px] font-bold mb-10 text-center"
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className={darkMode ? 'text-blue-400' : 'text-blue-600'}>My</span> Skills
-        </motion.h2>
+      <motion.h2 
+  className="text-4xl md:text-[50px] font-bold mb-10 text-center pl-4" // tambahkan pl-4 (padding-left)
+  initial={{ y: -20, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{ duration: 0.6 }}
+>
+  <span className={darkMode ? 'text-blue-400' : 'text-blue-600'}>My</span>{" "}
+  <span className="text-white">Skills</span>
+</motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {skills.map((skill, index) => (
@@ -141,16 +142,16 @@ const Skills = () => {
             onClick={navigateToProjects}
             whileHover={{ 
               scale: 1.05,
-              boxShadow: darkMode 
-                ? '0 10px 25px -5px rgba(59, 130, 246, 0.4)'
-                : '0 10px 25px -5px rgba(29, 78, 216, 0.4)'
-            }}
+              boxShadow: darkMode
+                  ? '0 10px 25px -5px rgba(234, 88, 12, 0.4)' // Orange shadow
+                  : '0 10px 25px -5px rgba(79, 70, 229, 0.4)', // Indigo shadow
+                transition: { duration: 0.3 }
+              }}
             whileTap={{ scale: 0.95 }}
-            className={`px-8 py-3 rounded-lg font-medium text-lg transition-all shadow-lg ${
-              darkMode 
-                ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                : 'bg-blue-500 hover:bg-blue-600 text-white'
-            }`}
+            className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden ${darkMode
+              ? 'bg-gradient-to-r from-orange-700 to-orange-600'
+              : 'bg-gradient-to-r from-blue-900 to-purple-600'
+              }`}
           >
             View My Projects →
           </motion.button>

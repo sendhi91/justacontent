@@ -56,21 +56,21 @@ const About = () => {
       style={{
         background: darkMode
           ? 'linear-gradient(to bottom right, #111827, #1f2937)'
-          : 'linear-gradient(to bottom right, #f0f9ff, #e0f2fe)'
+          : 'linear-gradient(to bottom right, #6D86E8, #6D86E8)'
       }}
     >
       <div className="max-w-7xl mx-auto">
-        <motion.h2 
-          className="text-white text-4xl md:text-[50px] font-bold mb-10"
-          variants={itemVariants}
-        >
-          About <span className="text-blue-400">Me</span>
-        </motion.h2>
+      <motion.h2 
+  className="text-navy dark:text-white text-4xl md:text-[50px] font-bold mb-10"
+  variants={itemVariants}
+>
+  About <span className="text-white dark:text-blue-400">Me</span>
+</motion.h2>
         
         <div className="flex flex-col md:flex-row gap-10">
           <motion.div className="flex-1" variants={containerVariants}>
             <motion.p 
-              className="text-blue-400 text-[18px] max-w-3xl leading-[30px] mb-10"
+              className="text-white dark:text-blue-400 text-[18px] max-w-3xl leading-[30px] mb-10"
               variants={itemVariants}
             >
               I am Albertus Sendhi Satriawan,
@@ -81,8 +81,8 @@ const About = () => {
             </motion.p>
             
             <motion.div className="mt-10" variants={itemVariants}>
-              <h3 className="text-white text-2xl md:text-[25px] font-bold mb-5">Education</h3>
-              <ul className="text-blue-400 list-disc pl-5 space-y-2">
+              <h3 className="text-navy dark:text-white text-2xl md:text-[25px] font-bold mb-5">Education</h3>
+              <ul className="text-white dark:text-blue-400 list-disc pl-5 space-y-2">
                 <motion.li variants={itemVariants}>
                   Akademi Teknologi Warga (2009-2012)
                 </motion.li>
@@ -90,8 +90,8 @@ const About = () => {
             </motion.div>
             
             <motion.div className="mt-10" variants={itemVariants}>
-              <h3 className="text-white text-2xl md:text-[25px] font-bold mb-5">Experience</h3>
-              <ul className="text-blue-400 list-disc pl-5 space-y-2">
+              <h3 className="text-navy dark:text-white text-2xl md:text-[25px] font-bold mb-5">Experience</h3>
+              <ul className="text-white dark:text-blue-400 list-disc pl-5 space-y-2">
                 <motion.li variants={itemVariants}>
                   Senior Designer at Creative Studio (2021-present)
                 </motion.li>
@@ -110,10 +110,15 @@ const About = () => {
                 onClick={navigateToSkills}
                 whileHover={{ 
                   scale: 1.05,
-                  boxShadow: '0 8px 20px -5px rgba(37, 99, 235, 0.4)'
+                  boxShadow: darkMode
+                  ? '0 10px 25px -5px rgba(234, 88, 12, 0.4)' // Orange shadow
+                  : '0 10px 25px -5px rgb(244, 244, 248)', // Indigo shadow
                 }}
                 whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-300 shadow-lg relative overflow-hidden group"
+                className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden ${darkMode
+                  ? 'bg-gradient-to-r from-orange-700 to-orange-600'
+                  : 'bg-gradient-to-r from-blue-900 to-purple-600'
+                  }`}
               >
                 <span className="relative z-10">View My Skills ↓</span>
                 <motion.span
