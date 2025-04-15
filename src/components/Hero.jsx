@@ -60,7 +60,7 @@ const Hero = () => {
       style={{
         background: darkMode
           ? 'linear-gradient(135deg, #111827 50%, #1f2937 50%)'
-          : 'linear-gradient(135deg, #f0f9ff 50%, #4BD0EA 50%)'
+          : 'linear-gradient(135deg, #f0f9ff 50%, #6D86E8 50%)'
       }}
       onMouseMove={handleMouseMove}
       initial={{ opacity: 1 }}
@@ -78,8 +78,8 @@ const Hero = () => {
         {isExiting && (
           <motion.div
             className={`absolute inset-0 z-50 ${darkMode
-                ? 'bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700'
-                : 'bg-gradient-to-br from-[#519BE0] to-[#3a7bb7]'
+              ? 'bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700'
+              : 'bg-gradient-to-br from-[#519BE0] to-[#3a7bb7]'
               }`}
             initial={{ clipPath: 'circle(0% at 50% 50%)' }}
             animate={{
