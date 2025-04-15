@@ -77,8 +77,8 @@ const Presentation = () => {
 
   const filteredPresentations = presentationData.filter(presentation => {
     const matchesFilter = filter === 'all' || presentation.tags.includes(filter);
-    const matchesSearch = presentation.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         presentation.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = presentation.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      presentation.description.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
@@ -100,19 +100,18 @@ const Presentation = () => {
     >
       {/* Header Section */}
       <motion.header
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="mb-12 text-center"
+        className="text-center px-4 py-6 overflow-visible"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
       >
-        <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-cyan-500 text-transparent bg-clip-text">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-3 tracking-tight bg-gradient-to-r from-green-400 to-teal-500 text-transparent bg-clip-text leading-[1.1] pb-1">
           Presentation Design Portfolio
         </h1>
-        <p className="text-gray-300 max-w-2xl mx-auto">
+        <p className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto mt-4">
           Professionally designed presentations that communicate effectively
         </p>
       </motion.header>
-
       {/* Search and Filter */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -128,16 +127,16 @@ const Presentation = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <svg 
-            className="absolute right-4 top-3.5 h-5 w-5 text-gray-400" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            className="absolute right-4 top-3.5 h-5 w-5 text-gray-400"
+            fill="none"
+            stroke="currentColor"
             viewBox="0 0 24 24"
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
-        
+
         <select
           className="px-5 py-3 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500"
           value={filter}
@@ -153,7 +152,7 @@ const Presentation = () => {
 
       {/* Presentations Grid */}
       {filteredPresentations.length > 0 ? (
-        <motion.div 
+        <motion.div
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
         >
@@ -163,20 +162,20 @@ const Presentation = () => {
               layout
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ 
+              transition={{
                 duration: 0.5,
                 delay: index * 0.1,
                 type: "spring",
                 stiffness: 100
               }}
-              whileHover={{ 
+              whileHover={{
                 y: -10,
                 boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2)"
               }}
               className="bg-gray-800/90 hover:bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:border-cyan-500 transition-all"
             >
               {/* Presentation Cover */}
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.03 }}
                 className={`relative h-56 sm:h-64 mb-6 rounded-xl overflow-hidden bg-gradient-to-br ${presentation.coverColor} flex items-center justify-center`}
               >
@@ -187,12 +186,12 @@ const Presentation = () => {
                   {presentation.slides} slides
                 </span>
               </motion.div>
-              
+
               {/* Presentation Content */}
               <div className="px-2">
                 <h3 className="text-2xl font-bold mb-3 text-cyan-400">{presentation.title}</h3>
                 <p className="text-gray-300 mb-5">{presentation.description}</p>
-                
+
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2">
                   {presentation.tags.map((tag) => (
@@ -212,7 +211,7 @@ const Presentation = () => {
           ))}
         </motion.div>
       ) : (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="text-center py-16"
@@ -233,7 +232,7 @@ const Presentation = () => {
       )}
 
       {/* Back Button */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
@@ -241,7 +240,7 @@ const Presentation = () => {
       >
         <motion.button
           onClick={handleBackNavigation}
-          whileHover={{ 
+          whileHover={{
             scale: 1.05,
             background: "linear-gradient(to right, #0891b2, #155e75)"
           }}
