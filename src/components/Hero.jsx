@@ -112,7 +112,7 @@ const Hero = () => {
         {/* Text Content (Left) */}
         <div className="relative z-10 pl-8 md:pl-12">
           <motion.p
-            className={`text-lg md:text-xl mb-3 ${darkMode ? 'text-white' : 'text-gray-800'}`}
+            className={`text-lg md:text-xl mb-3 ${darkMode ? 'text-white' : 'text-gray-800'} font-nunito font-bold`}
             custom={0.2}
             variants={textVariants}
             initial="hidden"
@@ -122,7 +122,7 @@ const Hero = () => {
               y: useTransform(mouseY, [-200, 200], [-5, 5])
             }}
           >
-            Hello I am
+            HELLO I AM
           </motion.p>
 
           <motion.h1
@@ -137,7 +137,7 @@ const Hero = () => {
             }}
           >
             <motion.span
-              className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
+              className="bg-clip-text font-dancing script text-transparent bg-gradient-to-r from-blue-500 to-purple-700"
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
@@ -157,7 +157,7 @@ const Hero = () => {
             }}
           >
             <motion.span
-              className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 block"
+              className="bg-clip-text font-dancing script text-transparent bg-gradient-to-r from-purple-600 to-pink-600 block"
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
@@ -165,19 +165,46 @@ const Hero = () => {
             </motion.span>
           </motion.h1>
 
-          <motion.h2
-            className={`text-xl md:text-2xl mb-8 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}
-            custom={0.5}
-            variants={textVariants}
-            initial="hidden"
-            animate="visible"
-            style={{
-              x: useTransform(mouseX, [-200, 200], [-5, 5]),
-              y: useTransform(mouseY, [-200, 200], [-3, 3])
-            }}
+          <motion.div
+            className="inline-block relative" // Wrapper dengan inline-block
           >
-            Graphics Designer
-          </motion.h2>
+            <motion.h2
+              className={`text-xl md:text-2xl mb-8 ${darkMode ? 'text-white' : 'text-gray-900'
+                } font-nunito font-bold px-3 py-1 relative z-10`} // Padding disesuaikan
+              custom={0.5}
+              variants={textVariants}
+              initial="hidden"
+              animate="visible"
+              style={{
+                x: useTransform(mouseX, [-200, 200], [-5, 5]),
+                y: useTransform(mouseY, [-200, 200], [-3, 3]),
+              }}
+              whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
+            >
+              GRAPHIC DESIGN
+
+              {/* Glow Background yang pas dengan teks */}
+              <motion.span
+                className="absolute -inset-1 bg-purple-500/20 dark:bg-indigo-500/20 rounded-md blur-md z-0"
+                initial={{
+                  opacity: 0,
+                  scale: 0.98 // Sedikit lebih kecil dari teks
+                }}
+                whileHover={{
+                  opacity: 1,
+                  scale: 1, // Sesuai ukuran teks
+                  transition: { duration: 0.3 }
+                }}
+                style={{
+                  width: 'calc(100%)', // Lebar mengikuti parent
+                  height: 'calc(100%)' // Tinggi mengikuti parent
+                }}
+              />
+            </motion.h2>
+          </motion.div>
 
           <motion.div
             custom={0.6}
@@ -223,36 +250,30 @@ const Hero = () => {
         </div>
 
         {/* Photo (Right) */}
-        <motion.div
-          className="flex justify-center md:justify-end"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{
-            opacity: 1,
-            x: 0,
-            transition: { delay: 0.5, type: 'spring' }
-          }}
-        >
+        <motion.div className="flex justify-center md:justify-end">
           <div className="relative">
-            {/* Avatar Image - Replace src with your image path */}
+            {/* Avatar Image */}
             <motion.img
-              src={profileImage} // Update this path
+              src={profileImage}
               alt="Albertus Sendhi"
-              className="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-white shadow-xl"
+              className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-white"
               whileHover={{ scale: 1.05 }}
             />
 
-            {/* Decorative Element*/}
+            {/* Animated Shadow */}
             <motion.div
-              // className="absolute -bottom-4 -right-4 w-24 h-24 bg-purple-600 rounded-full mix-blend-multiply opacity-70"
-              // animate={{
-              //   scale: [1, 1.1, 1],
-              //   rotate: [0, 10, 0]
-              // }}
-              // transition={{
-              //   repeat: Infinity,
-              //   duration: 5,
-              //   ease: "easeInOut"
-              // }}
+              className="absolute inset-0 rounded-full blur-xl z-0 bg-teal-200/50 dark:bg-purple-200/50"
+              initial={{ scale: 1 }}
+              animate={{
+                scale: [1, 1.05, 1],
+                opacity: [0.5, 0.7, 0.5]
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 3,
+                ease: "easeInOut"
+              }}
+
             />
           </div>
         </motion.div>
