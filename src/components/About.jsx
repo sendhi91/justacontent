@@ -74,7 +74,7 @@ const About = () => {
               variants={itemVariants}
             >
               I am Albertus Sendhi Satriawan,
-              a Graphics Designer with 5 years of experience in the creative industry.
+              a Graphics Designer with  experience in the creative industry.
               My specialties include branding design, digital illustration, 
               and publication layout. I believe that good design should convey 
               a message clearly while being visually stunning.
@@ -93,10 +93,10 @@ const About = () => {
               <h3 className="text-navy dark:text-white text-2xl md:text-[25px] font-bold mb-5">Experience</h3>
               <ul className="text-white dark:text-blue-400 list-disc pl-5 space-y-2">
                 <motion.li variants={itemVariants}>
-                  Senior Designer at Creative Studio (2021-present)
+                  unknown
                 </motion.li>
                 <motion.li variants={itemVariants}>
-                  Graphic Designer at Design Agency (2019-2021)
+                  unknown
                 </motion.li>
               </ul>
             </motion.div>

@@ -184,7 +184,7 @@ const Hero = () => {
                 transition: { duration: 0.2 }
               }}
             >
-              GRAPHIC DESIGN
+              GRAPHIC DESIGNER
 
               {/* Glow Background yang pas dengan teks */}
               <motion.span

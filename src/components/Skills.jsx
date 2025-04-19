@@ -4,12 +4,12 @@ import { useDarkMode } from '../context/DarkModeContext';
 import { useCallback } from 'react';
 
 const skills = [
-  { name: "HTML", level: 90 },
-  { name: "CSS", level: 85 },
-  { name: "JavaScript", level: 80 },
-  { name: "React", level: 75 },
-  { name: "Tailwind CSS", level: 70 },
-  { name: "Node.js", level: 65 },
+  { name: "edited", level: 90 },
+  { name: "edited", level: 85 },
+  { name: "edited", level: 80 },
+  { name: "edited", level: 75 },
+  { name: "edited", level: 70 },
+  { name: "edited", level: 65 },
 ];
 
 const Skills = () => {
