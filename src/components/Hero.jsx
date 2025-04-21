@@ -2,7 +2,9 @@ import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-mo
 import { useDarkMode } from '../context/DarkModeContext';
 import { useNavigate } from 'react-router-dom';
 import { useState, useCallback } from 'react';
-import profileImage from '../assets/profile.webp'; // Import gambar dari src/assets
+import { SiUpwork } from 'react-icons/si';
+
+import profileImage from '../assets/profile.webp';
 
 const Hero = () => {
   const { darkMode } = useDarkMode();
@@ -25,6 +27,10 @@ const Hero = () => {
       window.scrollTo(0, 0);
     }, 800);
   }, [navigate]);
+
+  const handleUpworkClick = useCallback(() => {
+    window.open('https://www.upwork.com/freelancers/albertussendhis', '_blank');
+  }, []);
 
   // Text animation variants
   const textVariants = {
@@ -165,12 +171,10 @@ const Hero = () => {
             </motion.span>
           </motion.h1>
 
-          <motion.div
-            className="inline-block relative" // Wrapper dengan inline-block
-          >
+          <motion.div className="inline-block relative">
             <motion.h2
               className={`text-xl md:text-2xl mb-8 ${darkMode ? 'text-white' : 'text-gray-900'
-                } font-nunito font-bold px-3 py-1 relative z-10`} // Padding disesuaikan
+                } font-nunito font-bold px-3 py-1 relative z-10`}
               custom={0.5}
               variants={textVariants}
               initial="hidden"
@@ -185,22 +189,20 @@ const Hero = () => {
               }}
             >
               GRAPHIC DESIGNER
-
-              {/* Glow Background yang pas dengan teks */}
               <motion.span
                 className="absolute -inset-1 bg-purple-500/20 dark:bg-indigo-500/20 rounded-md blur-md z-0"
                 initial={{
                   opacity: 0,
-                  scale: 0.98 // Sedikit lebih kecil dari teks
+                  scale: 0.98
                 }}
                 whileHover={{
                   opacity: 1,
-                  scale: 1, // Sesuai ukuran teks
+                  scale: 1,
                   transition: { duration: 0.3 }
                 }}
                 style={{
-                  width: 'calc(100%)', // Lebar mengikuti parent
-                  height: 'calc(100%)' // Tinggi mengikuti parent
+                  width: 'calc(100%)',
+                  height: 'calc(100%)'
                 }}
               />
             </motion.h2>
@@ -211,72 +213,126 @@ const Hero = () => {
             variants={textVariants}
             initial="hidden"
             animate="visible"
-            className="mt-12"
+            className="mt-12 flex flex-col sm:flex-row gap-4"
           >
             <motion.button
-              whileHover={{
-                scale: 1.05,
-                boxShadow: darkMode
-                  ? '0 10px 25px -5px rgba(234, 88, 12, 0.4)' // Orange shadow
-                  : '0 10px 25px -5px rgba(79, 70, 229, 0.4)', // Indigo shadow
-                transition: { duration: 0.3 }
-              }}
-              whileTap={{
-                scale: 0.95,
-                transition: { duration: 0.2 }
-              }}
-              onClick={handleGoDeeper}
-              className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden ${darkMode
-                ? 'bg-gradient-to-r from-orange-700 to-orange-600'
-                : 'bg-gradient-to-r from-blue-900 to-purple-600'
-                }`}
-            >
-              <span className="relative z-10">Go Deeper</span>
-              <motion.span
-                className={`absolute inset-0 ${darkMode
-                  ? 'bg-gradient-to-r from-orange-600 to-orange-700'
-                  : 'bg-gradient-to-r from-blue-600 to-purple-700'
-                  } opacity-0`}
-                whileHover={{
-                  opacity: 1,
-                  transition: {
-                    duration: 0.4,
-                    ease: "easeOut"
-                  }
-                }}
-              />
-            </motion.button>
+  whileHover={{
+    scale:1.05,
+    boxShadow: darkMode
+      ? '0 10px 25px -5px rgba(234,88,12,0.4)'
+      : '0 10px 25px -5px rgba(79,70,229,0.4)',
+    transition: { duration:0.3 }
+  }}
+  whileTap={{
+    scale:0.95,
+    transition: { duration:0.2 }
+  }}
+  onClick={handleGoDeeper}
+  className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden ${
+    darkMode
+      ? 'bg-gradient-to-r from-orange-700 to-orange-600'
+      : 'bg-gradient-to-r from-blue-900 to-purple-600'
+  }`}
+>
+  <span className="relative z-10">See My Work</span>
+  <motion.span
+    className={`absolute inset-0 ${
+      darkMode
+        ? 'bg-gradient-to-r from-orange-600 to-orange-700'
+        : 'bg-gradient-to-r from-blue-600 to-purple-700'
+    } opacity-0`}
+    whileHover={{
+      opacity:1,
+      transition: {
+        duration:0.4,
+        ease: "easeOut"
+      }
+    }}
+  />
+</motion.button>
+
+            <motion.button
+  whileHover={{
+    scale: 1.05,
+    boxShadow: darkMode
+      ? '0 10px 25px -5px rgba(37,207,108,0.4)'
+      : '0 10px 25px -5px rgba(5,150,105,0.4)',
+    transition: { duration: 0.3 }
+  }}
+  whileTap={{
+    scale: 0.95,
+    transition: { duration: 0.2 }
+  }}
+  onClick={handleUpworkClick}
+  className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden flex items-center justify-center gap-2 ${
+    darkMode
+      ? 'bg-gradient-to-r from-[#14a800] to-[#0d7400]'
+      : 'bg-gradient-to-r from-[#14a800] to-[#0d7400]'
+  }`}
+>
+  <SiUpwork className="text-xl" />
+  <motion.span
+    className="relative z-10"
+    whileHover={{
+      x: 10, // atau nilai lain yang Anda inginkan
+      transition: {
+        duration: 0.2,
+        ease: "easeOut"
+      }
+    }}
+  >
+    Hire Me on Upwork
+  </motion.span>
+  <motion.span
+    className={`absolute inset-0 ${
+      darkMode
+        ? 'bg-gradient-to-r from-[#0d7400] to-[#14a800]'
+        : 'bg-gradient-to-r from-[#0d7400] to-[#14a800]'
+    } opacity-0`}
+    whileHover={{
+      opacity: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    }}
+  />
+</motion.button>
           </motion.div>
         </div>
 
-        {/* Photo (Right) */}
-        <motion.div className="flex justify-center md:justify-end">
-          <div className="relative">
-            {/* Avatar Image */}
-            <motion.img
-              src={profileImage}
-              alt="Albertus Sendhi"
-              className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-white"
-              whileHover={{ scale: 1.05 }}
-            />
-
-            {/* Animated Shadow */}
-            <motion.div
-              className="absolute inset-0 rounded-full blur-xl z-0 bg-teal-200/50 dark:bg-purple-200/50"
-              initial={{ scale: 1 }}
-              animate={{
-                scale: [1, 1.05, 1],
-                opacity: [0.5, 0.7, 0.5]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 3,
-                ease: "easeInOut"
-              }}
-
-            />
-          </div>
-        </motion.div>
+        {/* Photo (Right) with Heartbeat Effect */}
+<motion.div className="flex justify-center md:justify-end">
+  <div className="relative">
+    <motion.img 
+      src={profileImage} 
+      alt="Albertus Sendhi" 
+      className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-white"
+      animate={{
+        scale: [1, 1, 1, 1.5, 1], // Stronger pulse for heartbeat
+        transition: {duration: 2.0,
+          repeat: Infinity,
+          repeatType: "reverse",
+          times: [0, 0.1, 0.2, 0.3, 1], // Uneven timing
+          ease: "easeIn"
+        }
+      }}
+    />
+    <motion.div
+      className="absolute inset-0 rounded-full blur-xl z-0 bg-teal-200/50 dark:bg-purple-200/50"
+      animate={{
+        scale: [1, 1.1, 1, 1.1, 1],
+        backgroundColor: darkMode 
+          ? ["#ffffff", "#ff0000", "#ffffff", "#ff0000", "#ffffff"] 
+          : ["#ffffff", "#ff6b6b", "#ffffff", "#ff6b6b", "#ffffff"],
+        transition: {
+          duration: 1.5,
+          repeat: Infinity
+        }
+      }}
+    />
+  </div>
+</motion.div>
       </div>
     </motion.section>
   );
