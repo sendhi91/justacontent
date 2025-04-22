@@ -10,6 +10,17 @@ const Hero = () => {
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
 
+  // Create 8 floating elements (moons/suns)
+  const floatingElements = Array.from({ length: 8 }).map((_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    delay: Math.random() * 5,
+    duration: 10 + Math.random() * 10,
+    size: 10 + Math.random() * 20,
+    yStart: -50 - Math.random() * 100,
+    yEnd: window.innerHeight + 50
+  }));
+
   // Mouse position tracking
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -78,6 +89,45 @@ const Hero = () => {
         }
       }}
     >
+      {/* Floating elements (moons/suns) */}
+      {floatingElements.map((element) => (
+        <motion.div
+          key={element.id}
+          className={`absolute ${darkMode ? 'text-gray-300' : 'text-yellow-300'} z-0`}
+          style={{
+            left: `${element.x}%`,
+            top: `${element.yStart}px`,
+            width: `${element.size}px`,
+            height: `${element.size}px`,
+            opacity: 0
+          }}
+          animate={{
+            y: [element.yStart, element.yEnd],
+            opacity: [0, 0.8, 0],
+            rotate: 360
+          }}
+          transition={{
+            delay: element.delay,
+            duration: element.duration,
+            repeat: Infinity,
+            repeatType: 'loop',
+            ease: 'linear'
+          }}
+        >
+          {darkMode ? (
+            // Crescent moon SVG
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8 0-4.4 3.6-8 8-8 1.8 0 3.5.6 4.9 1.7-1.3 1.1-2.1 2.7-2.1 4.3 0 3.3 2.7 6 6 6 1.6 0 3.2-.8 4.3-2.1 1.1 1.4 1.7 3.1 1.7 4.9 0 4.4-3.6 8-8 8z"/>
+            </svg>
+          ) : (
+            // Sun SVG
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 7c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0-5l-3 3 2 2-3-3-3 3 2-2-3-3h5v-2h2v2h5zm0 20l-3-3 2-2-3 3-3-3 2 2-3 3h5v2h2v-2h5z"/>
+            </svg>
+          )}
+        </motion.div>
+      ))}
+
       {/* Transition overlay */}
       <AnimatePresence>
         {isExiting && (
@@ -109,7 +159,7 @@ const Hero = () => {
         }}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl w-full items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl w-full items-center relative z-10">
         {/* Text Content (Left) */}
         <div className="relative z-10 pl-8 md:pl-12">
           <motion.p
