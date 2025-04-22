@@ -3,7 +3,6 @@ import { useDarkMode } from '../context/DarkModeContext';
 import { useNavigate } from 'react-router-dom';
 import { useState, useCallback } from 'react';
 import { SiUpwork } from 'react-icons/si';
-
 import profileImage from '../assets/profile.webp';
 
 const Hero = () => {
@@ -29,7 +28,7 @@ const Hero = () => {
   }, [navigate]);
 
   const handleUpworkClick = useCallback(() => {
-    window.open('https://www.upwork.com/freelancers/albertussendhis', '_blank');
+    window.open('https://www.upwork.com/freelancers/~YOUR_UPWORK_ID', '_blank');
   }, []);
 
   // Text animation variants
@@ -90,13 +89,9 @@ const Hero = () => {
             initial={{ clipPath: 'circle(0% at 50% 50%)' }}
             animate={{
               clipPath: 'circle(150% at 50% 50%)',
-              backgroundSize: darkMode ? '200% 200%' : '100% 100%',
               transition: {
                 duration: 0.8,
-                ease: [0.83, 0, 0.17, 1],
-                ...(darkMode && {
-                  backgroundPosition: ['0% 0%', '100% 100%']
-                })
+                ease: [0.83, 0, 0.17, 1]
               }
             }}
             exit={{ opacity: 0 }}
@@ -200,10 +195,6 @@ const Hero = () => {
                   scale: 1,
                   transition: { duration: 0.3 }
                 }}
-                style={{
-                  width: 'calc(100%)',
-                  height: 'calc(100%)'
-                }}
               />
             </motion.h2>
           </motion.div>
@@ -216,123 +207,109 @@ const Hero = () => {
             className="mt-12 flex flex-col sm:flex-row gap-4"
           >
             <motion.button
-  whileHover={{
-    scale:1.05,
-    boxShadow: darkMode
-      ? '0 10px 25px -5px rgba(234,88,12,0.4)'
-      : '0 10px 25px -5px rgba(79,70,229,0.4)',
-    transition: { duration:0.3 }
-  }}
-  whileTap={{
-    scale:0.95,
-    transition: { duration:0.2 }
-  }}
-  onClick={handleGoDeeper}
-  className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden ${
-    darkMode
-      ? 'bg-gradient-to-r from-orange-700 to-orange-600'
-      : 'bg-gradient-to-r from-blue-900 to-purple-600'
-  }`}
->
-  <span className="relative z-10">See My Work</span>
-  <motion.span
-    className={`absolute inset-0 ${
-      darkMode
-        ? 'bg-gradient-to-r from-orange-600 to-orange-700'
-        : 'bg-gradient-to-r from-blue-600 to-purple-700'
-    } opacity-0`}
-    whileHover={{
-      opacity:1,
-      transition: {
-        duration:0.4,
-        ease: "easeOut"
-      }
-    }}
-  />
-</motion.button>
+              whileHover={{
+                scale: 1.05,
+                boxShadow: darkMode
+                  ? '0 10px 25px -5px rgba(234, 88, 12, 0.4)'
+                  : '0 10px 25px -5px rgba(79, 70, 229, 0.4)',
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{
+                scale: 0.95,
+                transition: { duration: 0.2 }
+              }}
+              onClick={handleGoDeeper}
+              className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden ${
+                darkMode
+                  ? 'bg-gradient-to-r from-orange-700 to-orange-600'
+                  : 'bg-gradient-to-r from-blue-900 to-purple-600'
+              }`}
+            >
+              <span className="relative z-10">Go Deeper</span>
+              <motion.span
+                className={`absolute inset-0 ${
+                  darkMode
+                    ? 'bg-gradient-to-r from-orange-600 to-orange-700'
+                    : 'bg-gradient-to-r from-blue-600 to-purple-700'
+                } opacity-0`}
+                whileHover={{
+                  opacity: 1,
+                  transition: {
+                    duration: 0.4,
+                    ease: "easeOut"
+                  }
+                }}
+              />
+            </motion.button>
 
             <motion.button
-  whileHover={{
-    scale: 1.05,
-    boxShadow: darkMode
-      ? '0 10px 25px -5px rgba(37,207,108,0.4)'
-      : '0 10px 25px -5px rgba(5,150,105,0.4)',
-    transition: { duration: 0.3 }
-  }}
-  whileTap={{
-    scale: 0.95,
-    transition: { duration: 0.2 }
-  }}
-  onClick={handleUpworkClick}
-  className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden flex items-center justify-center gap-2 ${
-    darkMode
-      ? 'bg-gradient-to-r from-[#14a800] to-[#0d7400]'
-      : 'bg-gradient-to-r from-[#14a800] to-[#0d7400]'
-  }`}
->
-  <SiUpwork className="text-xl" />
-  <motion.span
-    className="relative z-10"
-    whileHover={{
-      x: 10, // atau nilai lain yang Anda inginkan
-      transition: {
-        duration: 0.2,
-        ease: "easeOut"
-      }
-    }}
-  >
-    Hire Me on Upwork
-  </motion.span>
-  <motion.span
-    className={`absolute inset-0 ${
-      darkMode
-        ? 'bg-gradient-to-r from-[#0d7400] to-[#14a800]'
-        : 'bg-gradient-to-r from-[#0d7400] to-[#14a800]'
-    } opacity-0`}
-    whileHover={{
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    }}
-  />
-</motion.button>
+              whileHover={{
+                scale: 1.05,
+                boxShadow: '0 10px 25px -5px rgba(37, 207, 108, 0.4)',
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{
+                scale: 0.95,
+                transition: { duration: 0.2 }
+              }}
+              onClick={handleUpworkClick}
+              className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden flex items-center justify-center gap-2 ${
+                darkMode
+                  ? 'bg-gradient-to-r from-[#14a800] to-[#0d7400]'
+                  : 'bg-gradient-to-r from-[#14a800] to-[#0d7400]'
+              }`}
+            >
+              <SiUpwork className="text-xl" />
+              <span className="relative z-10">Hire Me on Upwork</span>
+              <motion.span
+                className={`absolute inset-0 ${
+                  darkMode
+                    ? 'bg-gradient-to-r from-[#0d7400] to-[#14a800]'
+                    : 'bg-gradient-to-r from-[#0d7400] to-[#14a800]'
+                } opacity-0`}
+                whileHover={{
+                  opacity: 1,
+                  transition: {
+                    duration: 0.4,
+                    ease: "easeOut"
+                  }
+                }}
+              />
+            </motion.button>
           </motion.div>
         </div>
 
         {/* Photo (Right) with Heartbeat Effect */}
-<motion.div className="flex justify-center md:justify-end">
-  <div className="relative">
-    <motion.img 
-      src={profileImage} 
-      alt="Albertus Sendhi" 
-      className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-white"
-      animate={{
-        scale: [1, 1, 1, 1.5, 1], // Stronger pulse for heartbeat
-        transition: {duration: 2.0,
-          repeat: Infinity,
-          repeatType: "reverse",
-          times: [0, 0.1, 0.2, 0.3, 1], // Uneven timing
-          ease: "easeIn"
-        }
-      }}
-    />
-    <motion.div
-      className="absolute inset-0 rounded-full blur-xl z-0 bg-teal-200/50 dark:bg-purple-200/50"
-      animate={{
-        scale: [1, 1.1, 1, 1.1, 1],
-        backgroundColor: darkMode 
-          ? ["#ffffff", "#ff0000", "#ffffff", "#ff0000", "#ffffff"] 
-          : ["#ffffff", "#ff6b6b", "#ffffff", "#ff6b6b", "#ffffff"],
-        transition: {
-          duration: 1.5,
-          repeat: Infinity
-        }
-      }}
-    />
-  </div>
-</motion.div>
+        <motion.div className="flex justify-center md:justify-end">
+          <div className="relative">
+            <motion.img 
+              src={profileImage} 
+              alt="Albertus Sendhi" 
+              className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-white"
+              animate={{
+                scale: [1, 1.02, 1, 1.05, 1],
+                transition: {
+                  duration: 3.0,
+                  repeat: Infinity,
+                  ease: [0.42, 0, 0.58, 1],
+                  times: [0, 0.4, 0.6, 0.8, 1]
+                }
+              }}
+            />
+            <motion.div
+              className="absolute inset-0 rounded-full blur-xl z-0 bg-teal-200/50 dark:bg-purple-200/50"
+              animate={{
+                scale: [1, 1.03, 1, 1.05, 1],
+                opacity: [0.5, 0.7, 0.5, 0.7, 0.5],
+                transition: {
+                  duration: 3.0,
+                  repeat: Infinity,
+                  ease: [0.42, 0, 0.58, 1]
+                }
+              }}
+            />
+          </div>
+        </motion.div>
       </div>
     </motion.section>
   );
