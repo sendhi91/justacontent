@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Slider from 'react-slick';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 
 const ebookData = [
   {
@@ -75,7 +75,6 @@ const Ebook = () => {
   const [lightboxImages, setLightboxImages] = useState([]);
   const [photoIndex, setPhotoIndex] = useState(0);
 
-  // Update navigasi kembali ke Hero + Projects
   const handleBackNavigation = () => {
     navigate('/', {
       state: {
@@ -116,6 +115,7 @@ const Ebook = () => {
       transition={{ duration: 0.5 }}
       className="text-white pt-28 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto min-h-screen"
     >
+      {/* Header */}
       <motion.header
         className="text-center px-4 py-6 overflow-visible"
         initial={{ opacity: 0 }}
@@ -145,14 +145,6 @@ const Ebook = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <svg
-            className="absolute right-4 top-3.5 h-5 w-5 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
         </div>
 
         <select
@@ -197,24 +189,23 @@ const Ebook = () => {
                 <Slider {...sliderSettings}>
                   {ebook.images?.map((img, i) => (
                     <div
-  key={i}
-  className="relative group cursor-pointer"
-  onClick={() => {
-    setLightboxImages(ebook.images);
-    setPhotoIndex(i);
-    setLightboxOpen(true);
-  }}
->
-  <img
-    src={img}
-    alt={`Ebook ${ebook.title} slide ${i + 1}`}
-    className="w-full h-56 sm:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-  />
-  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-    <span className="text-white text-sm sm:text-base font-medium">Click to expand</span>
-  </div>
-</div>
-
+                      key={i}
+                      className="relative group cursor-pointer"
+                      onClick={() => {
+                        setLightboxImages(ebook.images.map(src => ({ src })));
+                        setPhotoIndex(i);
+                        setLightboxOpen(true);
+                      }}
+                    >
+                      <img
+                        src={img}
+                        alt={`Ebook ${ebook.title} slide ${i + 1}`}
+                        className="w-full h-56 sm:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span className="text-white text-sm sm:text-base font-medium">Click to expand</span>
+                      </div>
+                    </div>
                   ))}
                 </Slider>
               </div>
@@ -285,20 +276,13 @@ const Ebook = () => {
       </motion.div>
 
       {/* Lightbox */}
-      {lightboxOpen && (
-        <Lightbox
-          mainSrc={lightboxImages[photoIndex]}
-          nextSrc={lightboxImages[(photoIndex + 1) % lightboxImages.length]}
-          prevSrc={lightboxImages[(photoIndex + lightboxImages.length - 1) % lightboxImages.length]}
-          onCloseRequest={() => setLightboxOpen(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex((photoIndex + lightboxImages.length - 1) % lightboxImages.length)
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % lightboxImages.length)
-          }
-        />
-      )}
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        slides={lightboxImages}
+        index={photoIndex}
+        on={{ view: ({ index }) => setPhotoIndex(index) }}
+      />
     </motion.div>
   );
 };
