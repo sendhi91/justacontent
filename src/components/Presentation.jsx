@@ -65,13 +65,13 @@ const Presentation = () => {
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Enhanced navigation handler with state preservation
+  // Update navigasi kembali ke Hero + Projects
   const handleBackNavigation = () => {
-    navigate(location.state?.returnPath || '/projects', {
+    navigate('/', {
       state: {
         from: 'presentation',
-        scrollPosition: window.scrollY
-      }
+        scrollToProjects: true,
+      },
     });
   };
 

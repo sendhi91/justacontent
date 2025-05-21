@@ -38,6 +38,14 @@ const Hero = () => {
     }, 800);
   }, [navigate]);
 
+  const scrollToProjects = () => {
+    const section = document.getElementById('projects-section');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
+
   const handleUpworkClick = useCallback(() => {
     window.open('https://www.upwork.com/freelancers/~YOUR_UPWORK_ID', '_blank');
   }, []);
@@ -115,7 +123,7 @@ const Hero = () => {
           }}
         >
           {darkMode ? (
-            // Crescent moon SVG
+            // Crescent moon SVGab
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8 0-4.4 3.6-8 8-8 1.8 0 3.5.6 4.9 1.7-1.3 1.1-2.1 2.7-2.1 4.3 0 3.3 2.7 6 6 6 1.6 0 3.2-.8 4.3-2.1 1.1 1.4 1.7 3.1 1.7 4.9 0 4.4-3.6 8-8 8z"/>
             </svg>
@@ -134,7 +142,7 @@ const Hero = () => {
           <motion.div
             className={`absolute inset-0 z-50 ${darkMode
               ? 'bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700'
-              : 'bg-gradient-to-br from-[#519BE0] to-[#3a7bb7]'
+              : 'bg-gradient-to-br from-[ #6D86E8] to-[ #3a7bb7]'
               }`}
             initial={{ clipPath: 'circle(0% at 50% 50%)' }}
             animate={{
@@ -272,10 +280,10 @@ const Hero = () => {
               className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden ${
                 darkMode
                   ? 'bg-gradient-to-r from-orange-700 to-orange-600'
-                  : 'bg-gradient-to-r from-blue-900 to-purple-600'
+                  : 'bg-gradient-to-r from-orange-700 to-orange-600'
               }`}
             >
-              <span className="relative z-10">Go Deeper</span>
+              <span className="relative z-10">About Me</span>
               <motion.span
                 className={`absolute inset-0 ${
                   darkMode

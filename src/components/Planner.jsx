@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Slider from 'react-slick';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
 
-const ebookData = [
+const plannerData = [
   {
     id: 1,
     title: "Digital Marketing Guide",
@@ -13,11 +10,7 @@ const ebookData = [
     tags: ["Marketing", "Interactive", "Business"],
     pages: 120,
     coverColor: "from-purple-500 to-indigo-600",
-    icon: "📊",
-    images: [
-      "/ebooks/marketing/1.jpeg",
-      "/ebooks/marketing/2.jpeg",
-    ]
+    icon: "📊"
   },
   {
     id: 2,
@@ -66,17 +59,14 @@ const ebookData = [
   }
 ];
 
-const Ebook = () => {
+const Planner = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxImages, setLightboxImages] = useState([]);
-  const [photoIndex, setPhotoIndex] = useState(0);
 
-  // Update navigasi kembali ke Hero + Projects
-  const handleBackNavigation = () => {
+   // Update navigasi kembali ke Hero + Projects
+   const handleBackNavigation = () => {
     navigate('/', {
       state: {
         from: 'ebook',
@@ -85,28 +75,20 @@ const Ebook = () => {
     });
   };
 
-  const filteredEbooks = ebookData.filter(ebook => {
-    const matchesFilter = filter === 'all' || ebook.tags.includes(filter);
-    const matchesSearch = ebook.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ebook.description.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredPlanner = plannerData.filter(planner => {
+    const matchesFilter = filter === 'all' || planner.tags.includes(filter);
+    const matchesSearch = planner.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      planner.description.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
-  const allTags = ['all', ...new Set(ebookData.flatMap(ebook => ebook.tags))];
+  const allTags = ['all', ...new Set(plannerData.flatMap(planner => planner.tags))];
 
   useEffect(() => {
     if (!location.state?.from) {
       navigate('/projects', { replace: true });
     }
   }, [location, navigate]);
-
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
   return (
     <motion.div
@@ -116,6 +98,7 @@ const Ebook = () => {
       transition={{ duration: 0.5 }}
       className="text-white pt-28 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto min-h-screen"
     >
+      {/* Header Section */}
       <motion.header
         className="text-center px-4 py-6 overflow-visible"
         initial={{ opacity: 0 }}
@@ -123,14 +106,14 @@ const Ebook = () => {
         transition={{ duration: 0.8 }}
       >
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-3 tracking-tight bg-gradient-to-r from-green-400 to-teal-500 text-transparent bg-clip-text leading-[1.1] pb-1">
-          Ebook Design Portfolio
+          Planner Design Portfolio
         </h1>
         <p className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto mt-4">
           Professionally designed ebooks that engage and inform readers
         </p>
       </motion.header>
 
-      {/* Search & Filter */}
+      {/* Search and Filter */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -140,7 +123,7 @@ const Ebook = () => {
         <div className="relative flex-grow">
           <input
             type="text"
-            placeholder="Search ebooks by title or description..."
+            placeholder="Search planners  by title or description..."
             className="w-full px-5 py-3 bg-gray-800 border border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -168,15 +151,15 @@ const Ebook = () => {
         </select>
       </motion.div>
 
-      {/* Ebook Cards */}
-      {filteredEbooks.length > 0 ? (
+      {/* Ebooks Grid */}
+      {filteredPlanner.length > 0 ? (
         <motion.div
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
         >
-          {filteredEbooks.map((ebook, index) => (
+          {filteredPlanner.map((planner, index) => (
             <motion.div
-              key={ebook.id}
+              key={planner.id}
               layout
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -192,39 +175,27 @@ const Ebook = () => {
               }}
               className="bg-gray-800/90 hover:bg-gray-800 p-6 rounded-2xl border border-gray-700 hover:border-teal-500 transition-all"
             >
-              {/* Slideshow */}
-              <div className="rounded-xl overflow-hidden mb-6">
-                <Slider {...sliderSettings}>
-                  {ebook.images?.map((img, i) => (
-                    <div
-  key={i}
-  className="relative group cursor-pointer"
-  onClick={() => {
-    setLightboxImages(ebook.images);
-    setPhotoIndex(i);
-    setLightboxOpen(true);
-  }}
->
-  <img
-    src={img}
-    alt={`Ebook ${ebook.title} slide ${i + 1}`}
-    className="w-full h-56 sm:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-  />
-  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-    <span className="text-white text-sm sm:text-base font-medium">Click to expand</span>
-  </div>
-</div>
+              {/* Ebook Cover */}
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className={`relative h-56 sm:h-64 mb-6 rounded-xl overflow-hidden bg-gradient-to-br ${planner.coverColor} flex items-center justify-center`}
+              >
+                <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                  <span className="text-6xl">{planner.icon}</span>
+                </div>
+                <span className="absolute bottom-3 right-3 text-sm bg-black/70 px-3 py-1 rounded-full">
+                  {planner.pages} pages
+                </span>
+              </motion.div>
 
-                  ))}
-                </Slider>
-              </div>
-
-              {/* Content */}
+              {/* Ebook Content */}
               <div className="px-2">
-                <h3 className="text-2xl font-bold mb-3 text-teal-400">{ebook.title}</h3>
-                <p className="text-gray-300 mb-5">{ebook.description}</p>
+                <h3 className="text-2xl font-bold mb-3 text-teal-400">{planner.title}</h3>
+                <p className="text-gray-300 mb-5">{planner.description}</p>
+
+                {/* Tags */}
                 <div className="flex flex-wrap gap-2">
-                  {ebook.tags.map(tag => (
+                  {planner.tags.map((tag) => (
                     <motion.button
                       key={tag}
                       whileHover={{ scale: 1.1 }}
@@ -246,7 +217,7 @@ const Ebook = () => {
           animate={{ opacity: 1 }}
           className="text-center py-16"
         >
-          <h3 className="text-xl text-gray-400 mb-6">No ebooks match your search criteria</h3>
+          <h3 className="text-xl text-gray-400 mb-6">No planners match your search criteria</h3>
           <motion.button
             onClick={() => {
               setFilter('all');
@@ -269,38 +240,22 @@ const Ebook = () => {
         className="text-center"
       >
         <motion.button
-          onClick={handleBackNavigation}
-          whileHover={{
-            scale: 1.05,
-            background: "linear-gradient(to right, #0d9488, #115e59)"
-          }}
-          whileTap={{ scale: 0.98 }}
-          className="px-8 py-3.5 bg-gradient-to-r from-teal-600 to-teal-800 rounded-xl font-medium shadow-lg transition-all flex items-center justify-center gap-2 mx-auto"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          Return to Projects
-        </motion.button>
-      </motion.div>
-
-      {/* Lightbox */}
-      {lightboxOpen && (
-        <Lightbox
-          mainSrc={lightboxImages[photoIndex]}
-          nextSrc={lightboxImages[(photoIndex + 1) % lightboxImages.length]}
-          prevSrc={lightboxImages[(photoIndex + lightboxImages.length - 1) % lightboxImages.length]}
-          onCloseRequest={() => setLightboxOpen(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex((photoIndex + lightboxImages.length - 1) % lightboxImages.length)
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % lightboxImages.length)
-          }
-        />
-      )}
+ onClick={handleBackNavigation}
+ whileHover={{
+ scale:1.05,
+ background: "linear-gradient(to right, #0d9488, #115e59)"
+ }}
+ whileTap={{ scale:0.98 }}
+ className="px-8 py-3.5 bg-gradient-to-r from-teal-600 to-teal-800 rounded-xl font-medium shadow-lg transition-all flex items-center justify-center gap-2 mx-auto"
+ >
+ <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+ <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+ </svg>
+ Return to Projects
+ </motion.button>
+</motion.div>
     </motion.div>
   );
 };
 
-export default Ebook;
+export default Planner;
