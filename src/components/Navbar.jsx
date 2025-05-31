@@ -40,20 +40,19 @@ export default function Navbar() {
   const rays = Array(8).fill(0);
 
   return (
-    <nav className="fixed w-full bg-white/80 dark:bg-gray-800/80 shadow-md z-50 backdrop-blur-sm">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-        <Link 
-          to="/" 
-          className="text-xm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-500 transition-colors"
-        >
-          PortfolioKu
-        </Link>
-        
-        <div className="flex items-center space-x-4 sm:space-x-6 ml-2 sm:ml-0">
-          <Link to="/" className="text-gray-800 dark:text-gray-200 hover:text-blue-500">Home</Link>
-          <Link to="/projects" className="text-gray-800 dark:text-gray-200 hover:text-blue-500">Projects</Link>
-          <Link to="/contact" className="text-gray-800 dark:text-gray-200 hover:text-blue-500">Contact</Link>
-          
+    <nav className="fixed w-full bg-white/80 dark:bg-[#07A9F0]/80 shadow-md z-50 backdrop-blur-sm">
+  <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+    <Link 
+      to="/" 
+      className="text-xm font-bold text-blue-600 dark:text-white hover:text-blue-500 transition-colors"
+    >
+      PortfolioKu
+    </Link>
+    
+    <div className="flex items-center space-x-4 sm:space-x-6 ml-2 sm:ml-0">
+      <Link to="/" className="text-gray-800 dark:text-white hover:text-blue-500">Home</Link>
+      <Link to="/projects" className="text-gray-800 dark:text-white hover:text-blue-500">Projects</Link>
+      <Link to="/contact" className="text-gray-800 dark:text-white hover:text-blue-500">Contact</Link>
           {/* Enhanced Dark Mode Toggle */}
           <motion.button 
             onClick={toggleDarkMode}

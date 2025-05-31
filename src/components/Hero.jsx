@@ -47,7 +47,7 @@ const Hero = () => {
   
 
   const handleUpworkClick = useCallback(() => {
-    window.open('https://www.upwork.com/freelancers/~YOUR_UPWORK_ID', '_blank');
+    window.open('https://www.upwork.com/freelancers/~01aedac6b2e2f60ad1', '_blank');
   }, []);
 
   // Text animation variants
@@ -83,8 +83,8 @@ const Hero = () => {
       className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
       style={{
         background: darkMode
-          ? 'linear-gradient(135deg, #111827 50%, #1f2937 50%)'
-          : 'linear-gradient(135deg, #f0f9ff 50%, #6D86E8 50%)'
+          ? 'linear-gradient(135deg, #07A9F0 50%, #0F8BCC 50%)'
+          : 'linear-gradient(135deg, #ffffff 50%, #07A9F0 50%)'
       }}
       onMouseMove={handleMouseMove}
       initial={{ opacity: 1 }}
@@ -142,7 +142,7 @@ const Hero = () => {
           <motion.div
             className={`absolute inset-0 z-50 ${darkMode
               ? 'bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700'
-              : 'bg-gradient-to-br from-[ #6D86E8] to-[ #3a7bb7]'
+              : 'bg-gradient-to-br from-[rgb(252, 252, 252)] to-[rgb(255, 255, 255)]'
               }`}
             initial={{ clipPath: 'circle(0% at 50% 50%)' }}
             animate={{
@@ -158,14 +158,20 @@ const Hero = () => {
       </AnimatePresence>
 
       {/* Left Marker Line */}
-      <motion.div
-        className="absolute left-0 md:left-8 top-0 h-full w-1 bg-gradient-to-b from-blue-600 to-white-200 z-0"
-        initial={{ scaleY: 0 }}
-        animate={{
-          scaleY: 1,
-          transition: { delay: 0.3, duration: 0.8 }
-        }}
-      />
+<motion.div
+  className="absolute left-0 md:left-8 top-0 h-full w-1 z-0"
+  style={{
+    background: darkMode 
+      ? 'linear-gradient(to bottom, #FFFFFF, rgba(255,255,255,0.3))' 
+      : 'linear-gradient(to bottom, #07A9F0, rgba(7,169,240,0.3))'
+  }}
+  initial={{ scaleY: 0 }}
+  animate={{
+    scaleY: 1,
+    transition: { delay: 0.3, duration: 0.8 }
+  }}
+/>
+      
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl w-full items-center relative z-10">
         {/* Text Content (Left) */}
@@ -196,12 +202,12 @@ const Hero = () => {
             }}
           >
             <motion.span
-              className="bg-clip-text font-dancing script text-transparent bg-gradient-to-r from-blue-500 to-purple-700"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-            >
-              Albertus Sendhi
-            </motion.span>
+  className="bg-clip-text font-dancing script text-transparent bg-gradient-to-r from-blue-500 to-blue-700 dark:text-white"
+  whileHover={{ scale: 1.02 }}
+  transition={{ type: 'spring', stiffness: 300 }}
+>
+  Albertus Sendhi
+</motion.span>
           </motion.h1>
 
           <motion.h1
@@ -216,12 +222,12 @@ const Hero = () => {
             }}
           >
             <motion.span
-              className="bg-clip-text font-dancing script text-transparent bg-gradient-to-r from-purple-600 to-pink-600 block"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-            >
-              Satriawan
-            </motion.span>
+  className="bg-clip-text font-dancing script text-transparent bg-gradient-to-r from-blue-600 to-blue-800 dark:text-white block"
+  whileHover={{ scale: 1.02 }}
+  transition={{ type: 'spring', stiffness: 300 }}
+>
+  Satriawan
+</motion.span>
           </motion.h1>
 
           <motion.div className="inline-block relative">
