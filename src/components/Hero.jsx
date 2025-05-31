@@ -1,14 +1,13 @@
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useNavigate } from 'react-router-dom';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { SiUpwork } from 'react-icons/si';
 import profileImage from '../assets/profile.webp';
 
 const Hero = () => {
   const { darkMode } = useDarkMode();
   const navigate = useNavigate();
-  const [isExiting, setIsExiting] = useState(false);
 
   // Create 8 floating elements (moons/suns)
   const floatingElements = Array.from({ length: 8 }).map((_, i) => ({
@@ -30,24 +29,19 @@ const Hero = () => {
     mouseY.set(e.clientY - window.innerHeight / 2);
   }, [mouseX, mouseY]);
 
-  const handleGoDeeper = useCallback(() => {
-    setIsExiting(true);
-    setTimeout(() => {
-      navigate('/about', { state: { fromHero: true } });
-      window.scrollTo(0, 0);
-    }, 800);
+  const handleAboutMe = useCallback(() => {
+    console.log('About Me button clicked, navigating to /about'); // Debug log
+    try {
+      navigate('/about', { state: { from: 'hero' } });
+    } catch (error) {
+      console.error('Navigation error:', error);
+      navigate('/', { replace: true });
+    }
   }, [navigate]);
 
-  const scrollToProjects = () => {
-    const section = document.getElementById('projects-section');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-  
-
   const handleUpworkClick = useCallback(() => {
-    window.open('https://www.upwork.com/freelancers/~01aedac6b2e2f60ad1', '_blank');
+    console.log('Hire Me on Upwork button clicked'); // Debug log
+    window.open('https://www.upwork.com/freelancers/~01aedac6b2e2f60ad1', '_blank', 'noopener,noreferrer');
   }, []);
 
   // Text animation variants
@@ -68,7 +62,7 @@ const Hero = () => {
   // Parallax effects
   const textXTransform = useTransform(
     mouseX,
-    [-window.innerWidth / 2, window.innerHeight / 2],
+    [-window.innerWidth / 2, window.innerWidth / 2],
     [-30, 30]
   );
   const textYTransform = useTransform(
@@ -89,13 +83,6 @@ const Hero = () => {
       onMouseMove={handleMouseMove}
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
-      exit={{
-        opacity: 0,
-        transition: {
-          duration: 0.5,
-          when: "afterChildren"
-        }
-      }}
     >
       {/* Floating elements (moons/suns) */}
       {floatingElements.map((element) => (
@@ -123,7 +110,7 @@ const Hero = () => {
           }}
         >
           {darkMode ? (
-            // Crescent moon SVGab
+            // Crescent moon SVG
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8 0-4.4 3.6-8 8-8 1.8 0 3.5.6 4.9 1.7-1.3 1.1-2.1 2.7-2.1 4.3 0 3.3 2.7 6 6 6 1.6 0 3.2-.8 4.3-2.1 1.1 1.4 1.7 3.1 1.7 4.9 0 4.4-3.6 8-8 8z"/>
             </svg>
@@ -136,42 +123,20 @@ const Hero = () => {
         </motion.div>
       ))}
 
-      {/* Transition overlay */}
-      <AnimatePresence>
-        {isExiting && (
-          <motion.div
-            className={`absolute inset-0 z-50 ${darkMode
-              ? 'bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700'
-              : 'bg-gradient-to-br from-[rgb(252, 252, 252)] to-[rgb(255, 255, 255)]'
-              }`}
-            initial={{ clipPath: 'circle(0% at 50% 50%)' }}
-            animate={{
-              clipPath: 'circle(150% at 50% 50%)',
-              transition: {
-                duration: 0.8,
-                ease: [0.83, 0, 0.17, 1]
-              }
-            }}
-            exit={{ opacity: 0 }}
-          />
-        )}
-      </AnimatePresence>
-
       {/* Left Marker Line */}
-<motion.div
-  className="absolute left-0 md:left-8 top-0 h-full w-1 z-0"
-  style={{
-    background: darkMode 
-      ? 'linear-gradient(to bottom, #FFFFFF, rgba(255,255,255,0.3))' 
-      : 'linear-gradient(to bottom, #07A9F0, rgba(7,169,240,0.3))'
-  }}
-  initial={{ scaleY: 0 }}
-  animate={{
-    scaleY: 1,
-    transition: { delay: 0.3, duration: 0.8 }
-  }}
-/>
-      
+      <motion.div
+        className="absolute left-0 md:left-8 top-0 h-full w-1 z-0"
+        style={{
+          background: darkMode 
+            ? 'linear-gradient(to bottom, #FFFFFF, rgba(255,255,255,0.3))' 
+            : 'linear-gradient(to bottom, #07A9F0, rgba(7,169,240,0.3))'
+        }}
+        initial={{ scaleY: 0 }}
+        animate={{
+          scaleY: 1,
+          transition: { delay: 0.3, duration: 0.8 }
+        }}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl w-full items-center relative z-10">
         {/* Text Content (Left) */}
@@ -202,12 +167,12 @@ const Hero = () => {
             }}
           >
             <motion.span
-  className="bg-clip-text font-dancing script text-transparent bg-gradient-to-r from-blue-500 to-blue-700 dark:text-white"
-  whileHover={{ scale: 1.02 }}
-  transition={{ type: 'spring', stiffness: 300 }}
->
-  Albertus Sendhi
-</motion.span>
+              className="bg-clip-text font-dancing-script text-transparent bg-gradient-to-r from-blue-500 to-blue-700 dark:text-white"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              Albertus Sendhi
+            </motion.span>
           </motion.h1>
 
           <motion.h1
@@ -222,18 +187,17 @@ const Hero = () => {
             }}
           >
             <motion.span
-  className="bg-clip-text font-dancing script text-transparent bg-gradient-to-r from-blue-600 to-blue-800 dark:text-white block"
-  whileHover={{ scale: 1.02 }}
-  transition={{ type: 'spring', stiffness: 300 }}
->
-  Satriawan
-</motion.span>
+              className="bg-clip-text font-dancing-script text-transparent bg-gradient-to-r from-blue-600 to-blue-800 dark:text-white block"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              Satriawan
+            </motion.span>
           </motion.h1>
 
           <motion.div className="inline-block relative">
             <motion.h2
-              className={`text-xl md:text-2xl mb-8 ${darkMode ? 'text-white' : 'text-gray-900'
-                } font-nunito font-bold px-3 py-1 relative z-10`}
+              className={`text-xl md:text-2xl mb-8 ${darkMode ? 'text-white' : 'text-gray-900'} font-nunito font-bold px-3 py-1 relative z-10`}
               custom={0.5}
               variants={textVariants}
               initial="hidden"
@@ -282,7 +246,7 @@ const Hero = () => {
                 scale: 0.95,
                 transition: { duration: 0.2 }
               }}
-              onClick={handleGoDeeper}
+              onClick={handleAboutMe}
               className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden ${
                 darkMode
                   ? 'bg-gradient-to-r from-orange-700 to-orange-600'
