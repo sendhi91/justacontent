@@ -1,5 +1,8 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { useDarkMode } from '../context/DarkModeContext';
+import { SiUpwork } from 'react-icons/si';
+import { useCallback } from 'react';
 
 const Contact = () => {
   const { darkMode } = useDarkMode();
@@ -40,6 +43,11 @@ const Contact = () => {
     }
   ];
 
+  const handleUpworkClick = useCallback(() => {
+    console.log('Hire Me on Upwork button clicked'); // Debug log
+    window.open('https://www.upwork.com/freelancers/~01aedac6b2e2f60ad1', '_blank', 'noopener,noreferrer');
+  }, []);
+
   return (
     <section 
       id="kontak" 
@@ -51,7 +59,7 @@ const Contact = () => {
         <h2 className={`text-3xl md:text-[50px] font-bold mb-10 ${
           darkMode ? 'text-white' : 'text-gray-800'
         }`}>
-          Contact <span className="text-blue-500">Me</span>
+          Contact For <span className="text-blue-500">Hire Me</span>
         </h2>
         
         <div className="flex flex-col md:flex-row gap-10">
@@ -63,7 +71,7 @@ const Contact = () => {
               please feel free to contact me via email, WhatsApp, or Instagram DM.
             </p>
             
-            <div className="space-y-5">
+            <div className="space-y-5 mb-8">
               {contactMethods.map((method, index) => (
                 <a
                   key={index}
@@ -85,6 +93,41 @@ const Contact = () => {
                 </a>
               ))}
             </div>
+
+            <motion.button
+              whileHover={{
+                scale: 1.05,
+                boxShadow: '0 10px 25px -5px rgba(37, 207, 108, 0.4)',
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{
+                scale: 0.95,
+                transition: { duration: 0.2 }
+              }}
+              onClick={handleUpworkClick}
+              className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden flex items-center justify-center gap-2 ${
+                darkMode
+                  ? 'bg-gradient-to-r from-[#14a800] to-[#0d7400]'
+                  : 'bg-gradient-to-r from-[#14a800] to-[#0d7400]'
+              }`}
+            >
+              <SiUpwork className="text-xl" />
+              <span className="relative z-10">Hire Me on Upwork</span>
+              <motion.span
+                className={`absolute inset-0 ${
+                  darkMode
+                    ? 'bg-gradient-to-r from-[#0d7400] to-[#14a800]'
+                    : 'bg-gradient-to-r from-[#0d7400] to-[#14a800]'
+                } opacity-0`}
+                whileHover={{
+                  opacity: 1,
+                  transition: {
+                    duration: 0.4,
+                    ease: "easeOut"
+                  }
+                }}
+              />
+            </motion.button>
           </div>
           
           <div className="flex-1">
