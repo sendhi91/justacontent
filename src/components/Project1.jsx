@@ -26,47 +26,47 @@ const Projects = () => {
         "/presentation-slide6.jpg",
         "/presentation-slide7.jpg",
         "/presentation-slide8.jpg",
-        "/presentation-slide9.jpg",
+        // "/presentation-slide9.jpg",
       ],
     },
     {
       id: 2,
       title: "Ebook Design",
       description: "Beautiful ebook designs optimized for digital marketing and readability across devices.",
-      image: "/ebook.jpg",
+      image: "/presentation-slideB.jpg",
       placeholder: "/placeholder-design.jpg",
       tags: ["Adobe InDesign", "Canva", "Illustrator"],
       slideshowImages: [
-        "/ebook-slide1.jpg",
-        "/ebook-slide2.jpg",
-        "/ebook-slide3.jpg",
-        "/ebook-slide4.jpg",
-        "/ebook-slide5.jpg",
-        "/ebook-slide6.jpg",
-        "/ebook-slide7.jpg",
-        "/ebook-slide8.jpg",
-        "/ebook-slide9.jpg",
-        "/ebook-slide10.jpg",
+        "/presentation-slideB_1.jpg",
+        "/presentation-slideB_2.jpg",
+        "/presentation-slideB_3.jpg",
+        "/presentation-slideB_4.jpg",
+        "/presentation-slideB_5.jpg",
+        "/presentation-slideB_6.jpg",
+        "/presentation-slideB_7.jpg",
+        // "/presentation-slideB_8.jpg",
+        // "/presentation-slideB_9.jpg",
+        // "/presentation-slideB_10.jpg",
       ],
     },
     {
       id: 3,
       title: "Planner Design",
       description: "Organize your time and goals with clean and visual planner layouts.",
-      image: "/planner.jpg",
+      image: "/presentation-slideC.jpg",
       placeholder: "/placeholder-design.jpg",
       tags: ["Design", "Productivity", "Planner"],
       slideshowImages: [
-        "/planner_1.jpeg",
-        "/planner-slide2.jpg",
-        "/planner-slide3.jpg",
-        "/planner-slide4.jpg",
-        "/planner-slide5.jpg",
-        "/planner-slide6.jpg",
-        "/planner-slide7.jpg",
-        "/planner-slide8.jpg",
-        "/planner-slide9.jpg",
-        "/planner-slide10.jpg",
+        "/presentation-slideC_1.jpg",
+        "/presentation-slideC_2.jpg",
+        "/presentation-slideC_3.jpg",
+        "/presentation-slideC_4.jpg",
+        "/presentation-slideC_5.jpg",
+        "/presentation-slideC_6.jpg",
+        "/presentation-slideC_7.jpg",
+        "/presentation-slideC_8.jpg",
+        // "/presentation-slideC_9.jpg",
+        // "/presentation-slideC_10.jpg",
       ],
     }
   ];
@@ -212,7 +212,8 @@ const Projects = () => {
             <div className="mb-6">
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="relative w-full h-96 sm:h-[28rem] md:h-[32rem] lg:h-[36rem] xl:h-[40rem] rounded-xl overflow-hidden mb-3"
+                // className="relative w-full h-96 sm:h-[28rem] md:h-[32rem] lg:h-[36rem] xl:h-[40rem] rounded-xl overflow-hidden mb-3"
+                className="relative w-full h-72 sm:h-[22rem] md:h-[26rem] lg:h-[30rem] xl:h-[34rem] rounded-xl overflow-hidden mb-3"
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <img
