@@ -12,30 +12,34 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "Presentation Design",
-      description: "Professional presentation designs for various purposes with modern layouts and engaging visuals.",
-      image: "/presentation.jpg",
+      title: "Ebook 1",
+      description: "Ebook Desain Contain Simple Fitness For Busy People",
+      image: "/ebook_a.jpg",
       placeholder: "/placeholder-design.jpg",
-      tags: ["Canva", "PowerPoint", "Keynote"],
+      tags: ["Health", "Canva", "Design"],
       slideshowImages: [
-        "/presentation-slide1.jpg",
-        "/presentation-slide2.jpg",
-        "/presentation-slide3.jpg",
-        "/presentation-slide4.jpg",
-        "/presentation-slide5.jpg",
-        "/presentation-slide6.jpg",
-        "/presentation-slide7.jpg",
-        "/presentation-slide8.jpg",
-        "/presentation-slide9.jpg",
+        "/ebook_a_1.jpg",
+        "/ebook_a_2.jpg",
+        "/ebook_a_3.jpg",
+        "/ebook_a_4.jpg",
+        "/ebook_a_5.jpg",
+        "/ebook_a_6.jpg",
+        "/ebook_a_7.jpg",
+        "/ebook_a_8.jpg",
+        "/ebook_a_9.jpg",
+        "/ebook_a_10.jpg",
+        "/ebook_a_11.jpg",
+        "/ebook_a_12.jpg",
+        "/ebook_a_13.jpg",
       ],
     },
     {
       id: 2,
-      title: "Ebook Design",
-      description: "Beautiful ebook designs optimized for digital marketing and readability across devices.",
+      title: "Ebook 2",
+      description: "edited",
       image: "/ebook.jpg",
       placeholder: "/placeholder-design.jpg",
-      tags: ["Adobe InDesign", "Canva", "Illustrator"],
+      tags: ["Health", "Canva", "Design"],
       slideshowImages: [
         "/ebook-slide1.jpg",
         "/ebook-slide2.jpg",
@@ -51,7 +55,7 @@ const Projects = () => {
     },
     {
       id: 3,
-      title: "Planner Design",
+      title: "Ebook 3",
       description: "Organize your time and goals with clean and visual planner layouts.",
       image: "/planner.jpg",
       placeholder: "/placeholder-design.jpg",
@@ -79,8 +83,8 @@ const Projects = () => {
     if (audioRef.current) {
       audioRef.current.volume = 0.1;
       audioRef.current.loop = true;
-      audioRef.current.play().catch(() => {
-        console.warn('Autoplay blocked by browser.');
+      audioRef.current.play().catch((error) => {
+        console.warn('Autoplay blocked by browser:', error);
       });
     }
   }, []);
@@ -162,11 +166,24 @@ const Projects = () => {
     }
   };
 
+  const pageVariants = {
+    initial: { opacity: 0, x: "100%" },
+    animate: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: "-100%" },
+  };
+
+  const pageTransition = {
+    duration: 0.5,
+    ease: "easeInOut",
+  };
+
   return (
     <motion.section
-      initial="hidden"
-      animate="visible"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
       exit="exit"
+      transition={pageTransition}
       className={`relative overflow-hidden px-4 sm:px-8 pt-28 pb-16 max-w-7xl mx-auto min-h-screen ${
         darkMode ? 'bg-[#0F8BCC]' : 'bg-[#07A9F0]'
       }`}
@@ -213,7 +230,7 @@ const Projects = () => {
             <div className="mb-6">
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="relative w-full h-96 sm:h-[28rem] md:h-[32rem] lg:h-[36rem] xl:h-[40rem] rounded-xl overflow-hidden mb-3"
+                className="relative w-full max-w-md mx-auto aspect-[148/210] rounded-xl overflow-hidden mb-3"
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <img
@@ -257,7 +274,7 @@ const Projects = () => {
                     {[...project.slideshowImages, ...project.slideshowImages].map((img, idx) => (
                       <motion.div
                         key={`${project.id}-${idx}`}
-                        className={`relative h-48 w-96 flex-shrink-0 rounded-md overflow-hidden ${
+                        className={`relative w-full max-w-xs aspect-[148/210] flex-shrink-0 rounded-md overflow-hidden ${
                           idx % project.slideshowImages.length === (currentSlide[project.id] || 0) 
                             ? 'ring-2 ring-blue-500' 
                             : ''

@@ -12,7 +12,7 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "Presentation Example 1",
+      title: "Presentation 1",
       description: "Professional presentation designs 1",
       image: "/presentation.jpg",
       placeholder: "/placeholder-design.jpg",
@@ -31,7 +31,7 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: "Presentation Example 2",
+      title: "Presentation 2",
       description: "Professional presentation designs 2",
       image: "/presentation-slideB.jpg",
       placeholder: "/placeholder-design.jpg",
@@ -46,12 +46,11 @@ const Projects = () => {
         "/presentation-slideB_7.jpg",
         "/presentation-slideB_8.jpg",
         "/presentation-slideB_9.jpg",
-        // "/presentation-slideB_10.jpg",
       ],
     },
     {
       id: 3,
-      title: "Presentation Example 3",
+      title: "Presentation 3",
       description: "Professional presentation designs 3",
       image: "/presentation-slideC.jpg",
       placeholder: "/placeholder-design.jpg",
@@ -65,8 +64,6 @@ const Projects = () => {
         "/presentation-slideC_6.jpg",
         "/presentation-slideC_7.jpg",
         "/presentation-slideC_8.jpg",
-        // "/presentation-slideC_9.jpg",
-        // "/presentation-slideC_10.jpg",
       ],
     }
   ];
@@ -212,7 +209,6 @@ const Projects = () => {
             <div className="mb-6">
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                // className="relative w-full h-96 sm:h-[28rem] md:h-[32rem] lg:h-[36rem] xl:h-[40rem] rounded-xl overflow-hidden mb-3"
                 className="relative w-full h-72 sm:h-[22rem] md:h-[26rem] lg:h-[30rem] xl:h-[34rem] rounded-xl overflow-hidden mb-3"
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -346,6 +342,12 @@ const Projects = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </motion.button>
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+            className="mt-6 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full mx-auto w-3/4 sm:w-1/2"
+          />
         </motion.div>
       </motion.div>
     </motion.section>
