@@ -183,7 +183,7 @@ const Projects = () => {
         darkMode ? 'bg-[#0F8BCC]' : 'bg-[#07A9F0]'
       }`}
     >
-      <audio ref={audioRef} src="/audio/bg-music.mp3" />
+      {/* <audio ref={audioRef} src="/audio/bg-music.mp3" /> */}
 
       <motion.div
         className="mb-12 text-center relative z-10"
