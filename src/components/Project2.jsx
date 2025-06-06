@@ -195,7 +195,7 @@ const Projects = () => {
         darkMode ? 'bg-[#0F8BCC]' : 'bg-[#07A9F0]'
       }`}
     >
-      <audio ref={audioRef} src="/audio/bg-music.mp3" />
+      {/* <audio ref={audioRef} src="/audio/bg-music.mp3" /> */}
 
       <motion.div
         className="mb-12 text-center relative z-10"
@@ -214,7 +214,7 @@ const Projects = () => {
         }}
       >
         <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-white">
-          Ebook Design Project
+          My Ebook Design
         </h2>
         <p className={`max-w-2xl mx-auto ${darkMode ? 'text-gray-100' : 'text-gray-200'}`}>
           Explore my collection of professional design projects

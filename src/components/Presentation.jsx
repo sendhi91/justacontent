@@ -344,7 +344,7 @@ const Presentation = () => {
         transition={{ duration: 0.8 }}
       >
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-3 tracking-tight text-white leading-[1.1] pb-1">
-          Presentation Design Portfolio
+          Presentation Design Portofolio
         </h1>
         <p className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto mt-4">
           Professionally designed presentations that communicate effectively

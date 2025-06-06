@@ -59,7 +59,7 @@ const Contact = () => {
         <h2 className={`text-3xl md:text-[50px] font-bold mb-10 ${
           darkMode ? 'text-white' : 'text-gray-800'
         }`}>
-          Contact For <span className="text-blue-500">Hire Me</span>
+          Let's Work <span className="text-blue-500">Together</span>
         </h2>
         
         <div className="flex flex-col md:flex-row gap-10">
