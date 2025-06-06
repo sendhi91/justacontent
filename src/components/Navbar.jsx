@@ -46,7 +46,7 @@ export default function Navbar() {
       to="/" 
       className="text-xm font-bold text-blue-600 dark:text-white hover:text-blue-500 transition-colors"
     >
-      PortfolioKu
+      AlbertusSendhi
     </Link>
     
     <div className="flex items-center space-x-4 sm:space-x-6 ml-2 sm:ml-0">

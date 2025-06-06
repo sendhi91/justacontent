@@ -89,7 +89,7 @@ const About = () => {
               </ul>
             </motion.div>
             
-            <motion.div className="mt-10" variants={itemVariants}>
+            {/* <motion.div className="mt-10" variants={itemVariants}>
               <h3 className="text-navy dark:text-white text-2xl md:text-[25px] font-bold mb-5">Experience</h3>
               <ul className="text-white dark:text-blue-400 list-disc pl-5 space-y-2">
                 <motion.li variants={itemVariants}>
@@ -99,14 +99,14 @@ const About = () => {
                   unknown
                 </motion.li>
               </ul>
-            </motion.div>
+            </motion.div> */}
 
             {/* Enhanced Skills Button */}
             <motion.div 
               className="mt-12 text-center"
               variants={itemVariants}
             >
-              <motion.button
+              {/* <motion.button
                 onClick={navigateToSkills}
                 whileHover={{ 
                   scale: 1.05,
@@ -125,7 +125,7 @@ const About = () => {
                   className="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-100"
                   transition={{ duration: 0.3 }}
                 />
-              </motion.button>
+              </motion.button> */}
             </motion.div>
           </motion.div>
           
