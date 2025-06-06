@@ -36,41 +36,48 @@ const Projects = () => {
     {
       id: 2,
       title: "Ebook 2",
-      description: "edited",
-      image: "/ebook.jpg",
+      description: "Ebook Desain Contain Power Up With Protein",
+      image: "/ebook_b.png",
       placeholder: "/placeholder-design.jpg",
       tags: ["Health", "Canva", "Design"],
       slideshowImages: [
-        "/ebook-slide1.jpg",
-        "/ebook-slide2.jpg",
-        "/ebook-slide3.jpg",
-        "/ebook-slide4.jpg",
-        "/ebook-slide5.jpg",
-        "/ebook-slide6.jpg",
-        "/ebook-slide7.jpg",
-        "/ebook-slide8.jpg",
-        "/ebook-slide9.jpg",
-        "/ebook-slide10.jpg",
+        "/ebook_b_1.png",
+        "/ebook_b_2.png",
+        "/ebook_b_3.png",
+        "/ebook_b_4.png",
+        "/ebook_b_5.png",
+        "/ebook_b_6.png",
+        "/ebook_b_7.png",
+        "/ebook_b_8.png",
+        "/ebook_b_9.png",
+        "/ebook_b_10.png",
+        "/ebook_b_11.png",
       ],
     },
     {
       id: 3,
       title: "Ebook 3",
-      description: "Organize your time and goals with clean and visual planner layouts.",
-      image: "/planner.jpg",
+      description: "Ebook Desain Contain Work From Anywhere",
+      image: "/ebook_c.jpg",
       placeholder: "/placeholder-design.jpg",
       tags: ["Design", "Productivity", "Planner"],
       slideshowImages: [
-        "/planner_1.jpeg",
-        "/planner-slide2.jpg",
-        "/planner-slide3.jpg",
-        "/planner-slide4.jpg",
-        "/planner-slide5.jpg",
-        "/planner-slide6.jpg",
-        "/planner-slide7.jpg",
-        "/planner-slide8.jpg",
-        "/planner-slide9.jpg",
-        "/planner-slide10.jpg",
+        "/ebook_c_1.jpg",
+        "/ebook_c_2.jpg",
+        "/ebook_c_3.jpg",
+        "/ebook_c_4.jpg",
+        "/ebook_c_5.jpg",
+        "/ebook_c_6.jpg",
+        "/ebook_c_7.jpg",
+        "/ebook_c_8.jpg",
+        "/ebook_c_9.jpg",
+        "/ebook_c_10.jpg",
+        "/ebook_c_11.jpg",
+        "/ebook_c_12.jpg",
+        "/ebook_c_13.jpg",
+        "/ebook_c_14.jpg",
+        "/ebook_c_15.jpg",
+        "/ebook_c_16.jpg",
       ],
     }
   ];
@@ -188,7 +195,7 @@ const Projects = () => {
         darkMode ? 'bg-[#0F8BCC]' : 'bg-[#07A9F0]'
       }`}
     >
-      {/* <audio ref={audioRef} src="/audio/bg-music.mp3" /> */}
+      <audio ref={audioRef} src="/audio/bg-music.mp3" />
 
       <motion.div
         className="mb-12 text-center relative z-10"
