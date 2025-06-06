@@ -6,8 +6,8 @@ const Footer = () => {
           © {new Date().getFullYear()} Albertus Sendhi Satriawan. All Rights Reserved.
         </p>
         
-        <div className="flex gap-5 mt-5">
-          {['twitter', 'github', 'linkedin', 'instagram'].map((social, index) => (
+        {/* <div className="flex gap-5 mt-5">
+          {['twitter', 'github', 'instagram'].map((social, index) => (
             <a 
               key={index} 
               href={`https://${social}.com/username`} 
@@ -18,7 +18,7 @@ const Footer = () => {
               <span className="text-white">{social.charAt(0).toUpperCase()}</span>
             </a>
           ))}
-        </div>
+        </div> */}
       </div>
     </footer>
   )
