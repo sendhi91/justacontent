@@ -65,7 +65,7 @@ const presentationData = [
   },
   {
     id: 4,
-    title: "nutrition & Fitness Secrets of Elite Athletes",
+    title: "Nutrition & Fitness Secrets of Elite Athletes",
     description: "Presentation about secrets of Elite Athletes",
     tags: ["Healthy", "Canva", "Design"],
     slides: 27,
@@ -106,11 +106,11 @@ const presentationData = [
   },
   {
     id: 6,
-    title: "The Impact of Artificial Inteligence On Our Daily Lives",
+    title: "The Impact of Artificial Intelligence On Our Daily Lives",
     description: "Presentation about using AI and history of AI",
-    tags: ["Artificial Inteligence", "Canva", "Design"],
+    tags: ["Artificial Intelligence", "Canva", "Design"],
     slides: 22,
-    coverColor: "from-yellow-500 to-orange-600",
+    coverColor: "from-yellow-400 to-orange-500",
     icon: "💡",
     images: [
       "/presentation-slideF.jpg",
@@ -128,10 +128,10 @@ const presentationData = [
     id: 7,
     title: "Join The Fight Against Tuberculosis",
     description: "Presentation about kind of Tuberculosis and How to Prevent",
-    tags: ["Healthy", "Canva", "Design"],
+    tags: ["Health", "Canva", "Design"],
     slides: 22,
-    coverColor: "from-yellow-500 to-orange-600",
-    icon: "💡",
+    coverColor: "from-blue-400 to-cyan-500",
+    icon: "💉",
     images: [
       "/presentation-slideG.jpg",
       "/presentation-slideG_1.jpg",
@@ -151,8 +151,8 @@ const presentationData = [
     description: "Presentation about child experiment",
     tags: ["Child Experiment", "Canva", "Design"],
     slides: 22,
-    coverColor: "from-yellow-500 to-orange-600",
-    icon: "💡",
+    coverColor: "from-red-400 to-orange-500",
+    icon: "🌋",
     images: [
       "/presentation-slideH.jpg",
       "/presentation-slideH_1.jpg",
@@ -167,11 +167,11 @@ const presentationData = [
   {
     id: 9,
     title: "Happy Plate Happy Kids, Building Healthy Eating Habits",
-    description: "Investor pitch presentation with financial projections",
-    tags: ["Healthy", "Canva", "Design"],
+    description: "Presentation about building healthy eating habits for kids",
+    tags: ["Health", "Canva", "Design"],
     slides: 22,
-    coverColor: "from-yellow-500 to-orange-600",
-    icon: "💡",
+    coverColor: "from-green-400 to-lime-500",
+    icon: "🍎",
     images: [
       "/presentation-slideI.jpg",
       "/presentation-slideI_1.jpg",
@@ -191,8 +191,8 @@ const presentationData = [
     description: "Presentation about Indonesia Tourism",
     tags: ["Tourism", "Canva", "Design"],
     slides: 22,
-    coverColor: "from-yellow-500 to-orange-600",
-    icon: "💡",
+    coverColor: "from-cyan-400 to-blue-500",
+    icon: "🌴",
     images: [
       "/presentation-slideJ.jpg",
       "/presentation-slideJ_2.jpg",
@@ -214,6 +214,7 @@ const Presentation = () => {
   const [currentSlide, setCurrentSlide] = useState({});
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImage, setLightboxImage] = useState('');
+  const [lightboxPresentationId, setLightboxPresentationId] = useState(null);
   const [isHovering, setIsHovering] = useState({});
 
   // Initialize current slides
@@ -280,11 +281,13 @@ const Presentation = () => {
   const openLightbox = (presentationId) => {
     const presentation = presentationData.find(p => p.id === presentationId);
     setLightboxImage(presentation.images[currentSlide[presentationId]]);
+    setLightboxPresentationId(presentationId);
     setLightboxOpen(true);
   };
 
   const closeLightbox = () => {
     setLightboxOpen(false);
+    setLightboxPresentationId(null);
   };
 
   const handleMouseEnter = (presentationId) => {
@@ -295,13 +298,41 @@ const Presentation = () => {
     setIsHovering(prev => ({ ...prev, [presentationId]: false }));
   };
 
+  const nextLightboxImage = (e) => {
+    e.stopPropagation();
+    const presentation = presentationData.find(p => p.id === lightboxPresentationId);
+    const currentIndex = presentation.images.indexOf(lightboxImage);
+    const nextIndex = (currentIndex + 1) % presentation.images.length;
+    setLightboxImage(presentation.images[nextIndex]);
+    setCurrentSlide(prev => ({
+      ...prev,
+      [lightboxPresentationId]: nextIndex,
+    }));
+  };
+
+  const prevLightboxImage = (e) => {
+    e.stopPropagation();
+    const presentation = presentationData.find(p => p.id === lightboxPresentationId);
+    const currentIndex = presentation.images.indexOf(lightboxImage);
+    const prevIndex = (currentIndex - 1 + presentation.images.length) % presentation.images.length;
+    setLightboxImage(presentation.images[prevIndex]);
+    setCurrentSlide(prev => ({
+      ...prev,
+      [lightboxPresentationId]: prevIndex,
+    }));
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="text-white pt-28 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto min-h-screen"
+      className={`pt-32 px-6 sm:px-12 md:px-16 max-w-8xl mx-auto min-h-screen bg-gradient-to-b ${
+        document.documentElement.classList.contains('dark')
+          ? 'from-[#0F8BCC] to-[#0A5A8A]'
+          : 'from-[#07A9F0] to-[#0582B8]'
+      }`}
     >
       {/* Lightbox */}
       <AnimatePresence>
@@ -317,20 +348,62 @@ const Presentation = () => {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className="relative max-w-6xl max-h-[90vh]"
+              className="relative w-full max-w-6xl aspect-[16/9]"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <motion.img
+                key={lightboxImage}
                 src={lightboxImage}
                 alt="Presentation Slide"
-                className="max-w-full max-h-[90vh] object-contain rounded-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="w-full h-full object-contain rounded-lg bg-gray-100"
               />
-              <button
+              <motion.button
+                onClick={prevLightboxImage}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/50 dark:bg-gray-800/50 text-black dark:text-white p-3 rounded-full hover:bg-white/70 dark:hover:bg-gray-900/70 transition-all z-10"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </motion.button>
+              <motion.button
+                onClick={nextLightboxImage}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/50 dark:bg-gray-800/50 text-black dark:text-white p-3 rounded-full hover:bg-white/70 dark:hover:bg-gray-900/70 transition-all z-10"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </motion.button>
+              <motion.button
                 onClick={closeLightbox}
-                className="absolute -top-12 right-0 text-white text-2xl hover:text-cyan-400 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                className="absolute -top-12 right-0 text-white text-3xl hover:text-cyan-400 transition-colors"
               >
                 ✕
-              </button>
+              </motion.button>
+              <span className="absolute bottom-3 right-3 text-sm bg-white/70 dark:bg-gray-800/70 text-black dark:text-white px-3 py-1 rounded-full z-10">
+                Slide {presentationData.find((p) => p.id === lightboxPresentationId).images.indexOf(lightboxImage) + 1}/
+                {presentationData.find((p) => p.id === lightboxPresentationId).images.length}
+              </span>
             </motion.div>
           </motion.div>
         )}
@@ -344,18 +417,21 @@ const Presentation = () => {
         transition={{ duration: 0.8 }}
       >
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-3 tracking-tight text-white leading-[1.1] pb-1">
-          Presentation Design Portofolio
+          Presentation Design Portfolio
         </h1>
-        <p className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto mt-4">
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="h-1.5 bg-gradient-to-r from-cyan-400 to-indigo-500 rounded-full mx-auto w-1/2 max-w-xs"
+        />
+        <p className="text-gray-200 text-lg sm:text-xl max-w-3xl mx-auto mt-6">
           Professionally designed presentations that communicate effectively
         </p>
       </motion.header>
 
       {/* Presentations Grid */}
-      <motion.div
-        layout
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
-      >
+      <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-12 mb-16">
         {presentationData.map((presentation, index) => (
           <motion.div
             key={presentation.id}
@@ -370,20 +446,27 @@ const Presentation = () => {
             }}
             whileHover={{
               y: -10,
-              boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2)"
+              boxShadow: "0 20px 25px rgba(0, 0, 0, 0.2)"
             }}
-            className="bg-white hover:bg-gray-100 p-6 rounded-2xl border border-gray-300 hover:border-cyan-500 transition-all"
+            className="bg-white dark:bg-gray-800 p-8 rounded-3xl border border-gray-300 dark:border-gray-600 hover:border-cyan-500 transition-all relative overflow-hidden"
           >
+            <motion.div
+              className="absolute inset-0 border-4 border-transparent rounded-3xl"
+              whileHover={{
+                borderColor: document.documentElement.classList.contains('dark') ? 'rgba(59, 130, 246, 0.5)' : 'rgba(59, 130, 246, 0.7)',
+                transition: { duration: 0.3 }
+              }}
+            />
             {/* Slideshow Presentation Cover */}
             <motion.div
               whileHover={{ scale: 1.03 }}
-              className="relative h-56 sm:h-64 mb-6 rounded-xl overflow-hidden cursor-pointer"
+              className="relative w-full max-w-md mx-auto aspect-[16/9] mb-6 rounded-2xl overflow-hidden cursor-pointer"
               onClick={() => openLightbox(presentation.id)}
               onMouseEnter={() => handleMouseEnter(presentation.id)}
               onMouseLeave={() => handleMouseLeave(presentation.id)}
             >
               {/* Slideshow */}
-              <div className="relative h-full w-full">
+              <div className="relative w-full h-full">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={currentSlide[presentation.id]}
@@ -393,63 +476,92 @@ const Presentation = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="w-full h-full object-contain bg-gray-100"
                   />
                 </AnimatePresence>
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center opacity-0 bg-black/50"
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <p className="text-white text-center p-4 text-sm font-medium">
+                    {presentation.description}
+                  </p>
+                </motion.div>
               </div>
 
               {/* Navigation Arrows */}
-              <button 
+              <motion.button
                 onClick={(e) => prevSlide(presentation.id, e)}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/50 text-black p-2 rounded-full hover:bg-white/70 transition-colors z-10"
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/50 dark:bg-gray-800/50 text-black dark:text-white p-3 rounded-full hover:bg-white/70 dark:hover:bg-gray-900/70 transition-all z-10"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-              </button>
-              <button 
+              </motion.button>
+              <motion.button
                 onClick={(e) => nextSlide(presentation.id, e)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/50 text-black p-2 rounded-full hover:bg-white/70 transition-colors z-10"
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/50 dark:bg-gray-800/50 text-black dark:text-white p-3 rounded-full hover:bg-white/70 dark:hover:bg-gray-900/70 transition-all z-10"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-              </button>
+              </motion.button>
 
               {/* Slide Indicator */}
               <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10">
                 {presentation.images.map((_, idx) => (
-                  <button
+                  <motion.button
                     key={idx}
                     onClick={(e) => {
                       e.stopPropagation();
                       setCurrentSlide(prev => ({ ...prev, [presentation.id]: idx }));
                     }}
-                    className={`w-2 h-2 rounded-full transition-all ${currentSlide[presentation.id] === idx ? 'bg-cyan-400 w-4' : 'bg-gray-800/50 hover:bg-gray-800/70'}`}
+                    whileHover={{ scale: 1.2 }}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      currentSlide[presentation.id] === idx ? 'bg-cyan-400 w-4' : 'bg-gray-800/50 hover:bg-gray-800/70'
+                    }`}
                   />
                 ))}
               </div>
 
               {/* Slide Count */}
-              <span className="absolute bottom-3 right-3 text-sm bg-white/70 text-black px-3 py-1 rounded-full z-10">
+              <span className="absolute bottom-3 right-3 text-sm bg-white/70 dark:bg-gray-800/70 text-black dark:text-white px-3 py-1 rounded-full z-10">
                 Slide {currentSlide[presentation.id] + 1}/{presentation.images.length}
               </span>
             </motion.div>
 
             {/* Presentation Content */}
-            <div className="px-2">
-              <h3 className="text-2xl font-bold mb-3 text-cyan-400">{presentation.title}</h3>
-              <p className="text-gray-600 mb-5">{presentation.description}</p>
+            <div className="px-4">
+              <h3 className="text-3xl font-bold mb-4 text-cyan-400">{presentation.title}</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">{presentation.description}</p>
 
               {/* Tags */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-3 mb-8">
                 {presentation.tags.map((tag) => (
-                  <span
+                  <motion.span
                     key={tag}
-                    className="px-3 py-1.5 bg-gray-200 rounded-full text-xs sm:text-sm text-gray-800"
+                    whileHover={{ scale: 1.12 }}
+                    className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-full text-sm font-medium text-gray-800 dark:text-gray-200"
                   >
                     {tag}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>
@@ -459,24 +571,32 @@ const Presentation = () => {
 
       {/* Back Button */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
         className="text-center"
       >
         <motion.button
           onClick={handleBackNavigation}
           whileHover={{
-            scale: 1.05,
-            background: "linear-gradient(to right,rgb(8, 178, 14),rgb(9, 248, 1))"
+            scale: 1.06,
+            boxShadow: '0 0 20px rgba(72, 187, 120, 0.7)',
+            background: 'linear-gradient(to right, rgb(234, 88, 12), rgb(249, 115, 22))',
           }}
-          whileTap={{ scale: 0.98 }}
-          className="px-8 py-3.5 bg-gradient-to-r from-orange-600 to-orange-800 rounded-xl font-medium shadow-lg transition-all flex items-center justify-center gap-2 mx-auto"
+          whileTap={{ scale: 0.97 }}
+          transition={{ type: 'spring', stiffness: 250, damping: 15 }}
+          className="px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-800 rounded-xl font-semibold text-white shadow-lg transition-all flex items-center justify-center gap-3 mx-auto"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          Return to Projects
+          <span className="text-lg">Return to Projects</span>
         </motion.button>
       </motion.div>
     </motion.div>

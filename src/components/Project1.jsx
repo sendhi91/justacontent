@@ -93,7 +93,7 @@ const Projects = () => {
 
           const container = slideshowRefs.current?.[project.id];
           if (container) {
-            const scrollAmount = 82;
+            const scrollAmount = 96;
             container.scrollLeft += scrollAmount;
 
             if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
@@ -153,8 +153,8 @@ const Projects = () => {
       }
     },
     hover: {
-      y: -8,
-      boxShadow: "0 15px 30px -10px rgba(0,0,0,0.25)"
+      y: -12,
+      boxShadow: "0 20px 40px -10px rgba(0,0,0,0.3)"
     }
   };
 
@@ -163,14 +163,14 @@ const Projects = () => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className={`relative overflow-hidden px-4 sm:px-8 pt-28 pb-16 max-w-7xl mx-auto min-h-screen ${
+      className={`relative overflow-hidden px-6 sm:px-12 md:px-16 pt-32 pb-20 max-w-8xl mx-auto min-h-screen ${
         darkMode ? 'bg-[#0F8BCC]' : 'bg-[#07A9F0]'
       }`}
     >
       {/* <audio ref={audioRef} src="/audio/bg-music.mp3" /> */}
 
       <motion.div
-        className="mb-12 text-center relative z-10"
+        className="mb-16 text-center relative z-10"
         variants={{
           hidden: { y: -20, opacity: 0 },
           visible: {
@@ -185,85 +185,85 @@ const Projects = () => {
           }
         }}
       >
-        <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-white">
+        <h2 className="text-5xl sm:text-6xl font-extrabold mb-6 text-white tracking-tight">
           My Presentation Design
         </h2>
-        <p className={`max-w-2xl mx-auto ${darkMode ? 'text-gray-100' : 'text-gray-200'}`}>
-          Explore my collection of professional design projects
+        <p className={`max-w-3xl mx-auto text-lg ${darkMode ? 'text-gray-100' : 'text-gray-200'}`}>
+          Explore my curated collection of professional design projects
         </p>
       </motion.div>
 
-      <motion.div className="flex flex-col gap-8 lg:gap-10" variants={containerVariants}>
+      <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-12" variants={containerVariants}>
         {projects.map((project, index) => (
           <motion.div
             key={project.id}
             variants={itemVariants}
             whileHover="hover"
-            className={`p-6 rounded-2xl border transition-all ${
+            className={`p-8 rounded-3xl border transition-all duration-300 ${
               darkMode 
-                ? 'bg-gray-800/90 hover:bg-gray-800 border-gray-700 hover:border-blue-400'
-                : 'bg-white/95 hover:bg-white border-gray-200 hover:border-blue-400'
+                ? 'bg-gray-800/95 hover:bg-gray-800/100 border-gray-700 hover:border-blue-400'
+                : 'bg-white/95 hover:bg-white/100 border-gray-200 hover:border-blue-400'
             }`}
             custom={index}
           >
-            <div className="mb-6">
+            <div className="mb-8">
               <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="relative w-full h-72 sm:h-[22rem] md:h-[26rem] lg:h-[30rem] xl:h-[34rem] rounded-xl overflow-hidden mb-3"
+                whileHover={{ scale: 1.03 }}
+                className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-6 shadow-lg"
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain bg-gray-100"
                   loading="lazy"
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = project.placeholder;
                   }}
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t ${darkMode ? 'from-black/60' : 'from-black/40'} to-transparent`} />
+                <div className={`absolute inset-0 bg-gradient-to-t ${darkMode ? 'from-black/70' : 'from-black/50'} to-transparent`} />
               </motion.div>
 
               {project.slideshowImages?.length > 0 && (
                 <div className="relative">
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.15 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => {
                       const container = slideshowRefs.current?.[project.id];
-                      if (container) container.scrollLeft -= 82;
+                      if (container) container.scrollLeft -= 96;
                     }}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/70 text-white p-3 rounded-full shadow-lg backdrop-blur-sm hover:bg-black/90 transition"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-black/80 text-white p-3 rounded-full shadow-xl backdrop-blur-md hover:bg-black/95 transition-all"
                     aria-label="Slide left"
                   >
-                    <ChevronLeft className="w-6 h-6" />
+                    <ChevronLeft className="w-5 h-5" />
                   </motion.button>
                   
                   <div
                     ref={el => (slideshowRefs.current[project.id] = el)}
-                    className="flex gap-2 overflow-x-hidden py-2 scroll-smooth"
+                    className="flex gap-3 overflow-x-hidden py-3 scroll-smooth"
                     onMouseEnter={() => handleMouseEnter(project.id)}
                     onMouseLeave={() => handleMouseLeave(project.id)}
                     style={{
                       maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
-                      WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
+                      webkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
                     }}
                   >
                     {[...project.slideshowImages, ...project.slideshowImages].map((img, idx) => (
                       <motion.div
                         key={`${project.id}-${idx}`}
-                        className={`relative h-48 w-96 flex-shrink-0 rounded-md overflow-hidden ${
+                        className={`relative aspect-[16/9] w-96 flex-shrink-0 rounded-lg overflow-hidden ${
                           idx % project.slideshowImages.length === (currentSlide[project.id] || 0) 
-                            ? 'ring-2 ring-blue-500' 
+                            ? 'ring-2 ring-blue-400' 
                             : ''
                         }`}
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ scale: 1.06 }}
                       >
                         <img
                           src={img}
                           alt={`Slide ${(idx % project.slideshowImages.length) + 1} of ${project.title}`}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain bg-gray-100"
                           loading="lazy"
                           onError={(e) => {
                             e.target.onerror = null;
@@ -271,46 +271,46 @@ const Projects = () => {
                           }}
                         />
                         {idx % project.slideshowImages.length === (currentSlide[project.id] || 0) && (
-                          <div className="absolute inset-0 bg-black/30" />
+                          <div className="absolute inset-0 bg-black/25" />
                         )}
                       </motion.div>
                     ))}
                   </div>
                 
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.15 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => {
                       const container = slideshowRefs.current?.[project.id];
-                      if (container) container.scrollLeft += 82;
+                      if (container) container.scrollLeft += 96;
                     }}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-black/70 text-white p-3 rounded-full shadow-lg backdrop-blur-sm hover:bg-black/90 transition"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-black/80 text-white p-3 rounded-full shadow-xl backdrop-blur-md hover:bg-black/95 transition-all"
                     aria-label="Slide right"
                   >
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="w-5 h-5" />
                   </motion.button>
                 </div>
               )}
             </div>
 
-            <div className="px-2">
-              <h3 className={`text-2xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+            <div className="px-4">
+              <h3 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-800'}`}>
                 {project.title}
               </h3>
-              <p className={`mb-4 ${darkMode ? 'text-gray-200' : 'text-gray-600'}`}>
+              <p className={`mb-6 text-lg ${darkMode ? 'text-gray-200' : 'text-gray-600'}`}>
                 {project.description}
               </p>
 
-              <div className="flex flex-wrap gap-2 mb-6 mt-4">
+              <div className="flex flex-wrap gap-3 mb-8 mt-6">
                 {project.tags.map((tag) => (
                   <motion.span
                     key={tag}
-                    whileHover={{ scale: 1.1 }}
-                    className={`px-3 py-1 rounded-full text-sm ${
+                    whileHover={{ scale: 1.12 }}
+                    className={`px-4 py-2 rounded-full text-sm font-medium ${
                       darkMode 
-                        ? 'bg-white/20 text-white hover:bg-blue-400'
-                        : 'bg-gray-100 text-gray-700 hover:bg-blue-500 hover:text-white'
-                    } transition-colors`}
+                        ? 'bg-orange-500 text-white hover:bg-blue-500 hover:text-white'
+                        : 'bg-orange-500 text-white hover:bg-blue-500 hover:text-white'
+                    } transition-colors shadow-sm`}
                   >
                     {tag}
                   </motion.span>
@@ -321,7 +321,7 @@ const Projects = () => {
         ))}
 
         <motion.div 
-          className="mt-8"
+          className="mt-12 col-span-full"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -329,16 +329,16 @@ const Projects = () => {
           <motion.button
             onClick={handleViewProject}
             whileHover={{ 
-              scale: 1.05,
-              boxShadow: '0 0 15px rgba(72, 187, 120, 0.6)'
+              scale: 1.06,
+              boxShadow: '0 0 20px rgba(72, 187, 120, 0.7)'
             }}
-            whileTap={{ scale: 0.98 }}
+            whileTap={{ scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 250, damping: 15 }}
-            className="w-full max-w-md mx-auto py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-green-500 hover:to-green-600 text-white font-medium rounded-lg flex items-center justify-center gap-2 transition-all duration-300"
+            className="w-full max-w-lg mx-auto py-4 px-8 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-green-500 hover:to-green-600 text-white font-semibold rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-lg"
             aria-label="View Presentation Project"
           >
-            <span>View More Presentation Project</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <span className="text-lg">View More Presentation Project</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </motion.button>
@@ -346,7 +346,7 @@ const Projects = () => {
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
             transition={{ duration: 0.5, delay: 0.7 }}
-            className="mt-6 h-1 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full mx-auto w-3/4 sm:w-1/2"
+            className="mt-8 h-1.5 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full mx-auto w-4/5 sm:w-2/3"
           />
         </motion.div>
       </motion.div>

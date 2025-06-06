@@ -1,7 +1,9 @@
+
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useDarkMode } from '../context/DarkModeContext';
 import { SiUpwork } from 'react-icons/si';
+import { FaWhatsapp } from 'react-icons/fa';
 import { useCallback } from 'react';
 
 const Contact = () => {
@@ -17,18 +19,14 @@ const Contact = () => {
         </svg>
       ),
       url: 'mailto:albertus.sendhi.s@gmail.com',
-      color: 'text-red-500'
+      color: 'text-red-500',
     },
     {
       name: 'WhatsApp',
       value: 'Chat on WhatsApp',
-      icon: (
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-6.29-3.03c.545-1.5.887-2.458.887-2.458-.177-.273-.353-.407-.57-.41-.173-.003-.344.005-.531.027-.05.006-.106.016-.17.027-.177.04-.344.07-.5.112-.236.062-.408.1-.413.106-.297.124-.396.388-.3.742.06.223.306 1.047.474 1.428.18.41.39.804.618 1.176l-.003.002.003.002c.146.25.387.562.653.9.445.555.97 1.176 1.595 1.63.067.05.137.095.207.136.373.222.765.4 1.172.532.394.127.787.188 1.173.188.274 0 .54-.024.79-.068.222-.038.462-.116.72-.236.075-.036.188-.09.188-.09s-.34-1.033-.886-2.533l-.004.001z"/>
-        </svg>
-      ),
+      icon: <FaWhatsapp className="w-5 h-5" />,
       url: 'https://wa.me/+6285880567000',
-      color: 'text-green-500'
+      color: 'text-green-500',
     },
     {
       name: 'Instagram',
@@ -39,153 +37,201 @@ const Contact = () => {
         </svg>
       ),
       url: 'https://instagram.com/albertus_sendhi',
-      color: 'text-pink-500'
-    }
+      color: 'text-pink-500',
+    },
   ];
 
   const handleUpworkClick = useCallback(() => {
-    console.log('Hire Me on Upwork button clicked'); // Debug log
+    console.log('Hire Me on Upwork button clicked');
     window.open('https://www.upwork.com/freelancers/~01aedac6b2e2f60ad1', '_blank', 'noopener,noreferrer');
   }, []);
 
+  // Animation variants for staggered entrance
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
-    <section 
-      id="kontak" 
+    <section
+      id="kontak"
       className={`relative w-full px-4 py-16 md:px-10 md:py-20 mx-auto ${
-        darkMode ? 'bg-gray-900' : 'bg-gray-100'
-      } transition-colors duration-300`}
+        darkMode
+          ? 'bg-gradient-to-b from-gray-900 to-gray-800'
+          : 'bg-gradient-to-b from-gray-100 to-gray-200'
+      } transition-colors duration-300 overflow-hidden`}
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className={`text-3xl md:text-[50px] font-bold mb-10 ${
-          darkMode ? 'text-white' : 'text-gray-800'
-        }`}>
-          Let's Work <span className="text-blue-500">Together</span>
-        </h2>
-        
-        <div className="flex flex-col md:flex-row gap-10">
-          <div className="flex-1">
-            <p className={`text-[18px] max-w-3xl leading-[30px] mb-10 ${
-              darkMode ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              If you're interested in collaborating with me or have any questions,
-              please feel free to contact me via email, WhatsApp, or Instagram DM.
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className={`text-4xl md:text-5xl font-extrabold mb-12 text-center ${
+            darkMode ? 'text-white' : 'text-gray-900'
+          }`}
+        >
+          Let's <span className="text-blue-500">Connect</span> & Create
+        </motion.h2>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col md:flex-row gap-12"
+        >
+          {/* Contact Methods */}
+          <motion.div variants={itemVariants} className="flex-1">
+            <p
+              className={`text-lg md:text-xl max-w-2xl leading-relaxed mb-8 ${
+                darkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}
+            >
+              Ready to collaborate? Reach out via Email, WhatsApp, or Instagram for a quick chat!
             </p>
-            
-            <div className="space-y-5 mb-8">
+
+            <div className="space-y-4 mb-10">
               {contactMethods.map((method, index) => (
-                <a
+                <motion.a
                   key={index}
                   href={method.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center gap-5 group transition-colors ${
-                    darkMode ? 'hover:text-white' : 'hover:text-gray-900'
-                  }`}
+                  variants={itemVariants}
+                  whileHover={{
+                    scale: 1.05,
+                    rotate: 2,
+                    transition: { duration: 0.3 },
+                  }}
+                  className={`flex items-center gap-4 p-4 rounded-xl backdrop-blur-sm ${
+                    darkMode
+                      ? 'bg-white/10 border border-gray-700'
+                      : 'bg-white/50 border border-gray-200'
+                  } group transition-all hover:shadow-lg ${method.color}`}
                 >
-                  <div className={`w-10 h-10 rounded-full ${
-                    darkMode ? 'bg-gray-800' : 'bg-white'
-                  } flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow ${method.color}`}>
+                  <div
+                    className={`w-12 h-12 rounded-full ${
+                      darkMode ? 'bg-gray-800' : 'bg-gray-100'
+                    } flex items-center justify-center shadow-md group-hover:shadow-xl transition-shadow`}
+                  >
                     {method.icon}
                   </div>
-                  <span className={`${
-                    darkMode ? 'text-white' : 'text-gray-800'
-                  }`}>{method.value}</span>
-                </a>
+                  <div>
+                    <p className={`font-semibold transition-colors ${
+  darkMode ? 'text-white group-hover:text-gray-100' : 'text-black group-hover:text-blue-500'
+}`}>
+  {method.name}
+</p>
+<p className={`text-sm transition-colors ${
+  darkMode ? 'text-gray-400 group-hover:text-gray-200' : 'text-black group-hover:text-blue-500'
+}`}>
+  {method.value}
+</p>
+
+                  </div>
+                </motion.a>
               ))}
             </div>
 
             <motion.button
               whileHover={{
                 scale: 1.05,
-                boxShadow: '0 10px 25px -5px rgba(37, 207, 108, 0.4)',
-                transition: { duration: 0.3 }
+                boxShadow: '0 10px 30px rgba(34, 255, 102, 0.5)',
+                transition: { duration: 0.3 },
               }}
-              whileTap={{
-                scale: 0.95,
-                transition: { duration: 0.2 }
-              }}
+              whileTap={{ scale: 0.95 }}
               onClick={handleUpworkClick}
-              className={`px-8 py-4 text-white rounded-lg font-medium text-lg shadow-lg relative overflow-hidden flex items-center justify-center gap-2 ${
-                darkMode
-                  ? 'bg-gradient-to-r from-[#14a800] to-[#0d7400]'
-                  : 'bg-gradient-to-r from-[#14a800] to-[#0d7400]'
-              }`}
+              className="relative px-8 py-4 rounded-xl font-bold text-lg text-white shadow-lg overflow-hidden bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 transition-all duration-300 flex items-center gap-3"
             >
               <SiUpwork className="text-xl" />
-              <span className="relative z-10">Hire Me on Upwork</span>
+              <span>Hire Me on Upwork</span>
               <motion.span
-                className={`absolute inset-0 ${
-                  darkMode
-                    ? 'bg-gradient-to-r from-[#0d7400] to-[#14a800]'
-                    : 'bg-gradient-to-r from-[#0d7400] to-[#14a800]'
-                } opacity-0`}
-                whileHover={{
-                  opacity: 1,
-                  transition: {
-                    duration: 0.4,
-                    ease: "easeOut"
-                  }
-                }}
+                className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-900 opacity-0"
+                whileHover={{ opacity: 0.3, transition: { duration: 0.4 } }}
+              />
+              <motion.span
+                className="absolute -right-2 -top-2 w-4 h-4 bg-green-300 rounded-full"
+                animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
               />
             </motion.button>
-          </div>
-          
-          <div className="flex-1">
-            <form className="space-y-5">
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.div variants={itemVariants} className="flex-1">
+            <form className="space-y-6 p-6 rounded-2xl backdrop-blur-sm bg-white/10 border border-gray-200 dark:border-gray-700">
               <div>
-                <label htmlFor="name" className={`block mb-2 ${
-                  darkMode ? 'text-white' : 'text-gray-800'
-                }`}>Your Name</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  className={`w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    darkMode 
-                      ? 'bg-gray-800 border-gray-700 text-white' 
-                      : 'bg-white border-gray-300 text-gray-800'
-                  } border transition-colors`}
+                <label
+                  htmlFor="name"
+                  className={`block mb-2 font-medium ${
+                    darkMode ? 'text-gray-200' : 'text-gray-800'
+                  }`}
+                >
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/20 dark:bg-gray-800/50 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 transition-all`}
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="email" className={`block mb-2 ${
-                  darkMode ? 'text-white' : 'text-gray-800'
-                }`}>Your Email</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  className={`w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    darkMode 
-                      ? 'bg-gray-800 border-gray-700 text-white' 
-                      : 'bg-white border-gray-300 text-gray-800'
-                  } border transition-colors`}
+                <label
+                  htmlFor="email"
+                  className={`block mb-2 font-medium ${
+                    darkMode ? 'text-gray-200' : 'text-gray-800'
+                  }`}
+                >
+                  Your Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/20 dark:bg-gray-800/50 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 transition-all`}
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="message" className={`block mb-2 ${
-                  darkMode ? 'text-white' : 'text-gray-800'
-                }`}>Your Message</label>
-                <textarea 
-                  id="message" 
+                <label
+                  htmlFor="message"
+                  className={`block mb-2 font-medium ${
+                    darkMode ? 'text-gray-200' : 'text-gray-200'
+                  }`}
+                >
+                  Your Message
+                </label>
+                <textarea
+                  id="message"
                   rows="5"
-                  className={`w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    darkMode 
-                      ? 'bg-gray-800 border-gray-700 text-white' 
-                      : 'bg-white border-gray-300 text-gray-800'
-                  } border transition-colors`}
+                  className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/20 dark:bg-gray-800/50 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 transition-all`}
                 ></textarea>
               </div>
-              
-              <button 
+
+              <motion.button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold transition-colors"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: '0 8px 20px rgba(59, 130, 246, 0.4)',
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full px-6 py-3 rounded-lg font-bold text-white bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 transition-all"
               >
                 Send Message
-              </button>
+              </motion.button>
             </form>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
