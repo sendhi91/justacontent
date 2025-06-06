@@ -204,8 +204,8 @@ const Ebook = () => {
       transition={{ duration: 0.5 }}
       className={`pt-32 px-6 sm:px-12 md:px-16 max-w-8xl mx-auto min-h-screen bg-gradient-to-b ${
         document.documentElement.classList.contains('dark')
-          ? 'from-[#0F8BCC] to-[#0A5A8A]'
-          : 'from-[#07A9F0] to-[#0582B8]'
+          ? 'from-blue-900 to-purple-900'
+          : 'from-blue-100 to-teal-100'
       }`}
     >
       {/* Lightbox */}
@@ -215,13 +215,13 @@ const Ebook = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
             onClick={closeLightbox}
           >
             <motion.div
-              initial={{ scale: 0.9 }}
+              initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
+              exit={{ scale: 0.95 }}
               className="relative w-full max-w-2xl aspect-[3/4]"
               onClick={(e) => e.stopPropagation()}
             >
@@ -233,13 +233,13 @@ const Ebook = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="w-full h-full object-contain rounded-lg"
+                className="w-full h-full object-contain rounded-lg border border-teal-500/50"
               />
               <motion.button
                 onClick={prevLightboxImage}
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.9 }}
-                className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/50 dark:bg-gray-800/50 text-black dark:text-white p-3 rounded-full hover:bg-white/70 dark:hover:bg-gray-900/70 transition-all z-10"
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-teal-500/50 text-white p-3 rounded-full hover:bg-teal-500/70 transition-all z-10"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -255,7 +255,7 @@ const Ebook = () => {
                 onClick={nextLightboxImage}
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.9 }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/50 dark:bg-gray-800/50 text-black dark:text-white p-3 rounded-full hover:bg-white/70 dark:hover:bg-gray-900/70 transition-all z-10"
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-teal-500/50 text-white p-3 rounded-full hover:bg-teal-500/70 transition-all z-10"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -270,11 +270,11 @@ const Ebook = () => {
               <motion.button
                 onClick={closeLightbox}
                 whileHover={{ scale: 1.1 }}
-                className="absolute -top-12 right-0 text-white text-3xl hover:text-cyan-400 transition-colors"
+                className="absolute -top-10 right-0 text-teal-300 text-3xl hover:text-teal-400 transition-colors"
               >
                 ✕
               </motion.button>
-              <span className="absolute bottom-3 right-3 text-sm bg-white/70 dark:bg-gray-800/70 text-black dark:text-white px-3 py-1 rounded-full z-10">
+              <span className="absolute bottom-4 right-4 text-sm bg-teal-500/70 text-white px-3 py-1 rounded-full z-10">
                 Slide {ebookData.find((p) => p.id === lightboxEbookId).images.indexOf(lightboxImage) + 1}/
                 {ebookData.find((p) => p.id === lightboxEbookId).images.length}
               </span>
@@ -285,21 +285,25 @@ const Ebook = () => {
 
       {/* Header Section */}
       <motion.header
-        className="text-center px-4 py-6 overflow-visible"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        className="text-center px-4 py-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold mb-3 tracking-tight text-white leading-[1.1] pb-1">
+        <h1 className={`text-6xl md:text-8xl font-extrabold mb-4 tracking-tight font-poppins ${
+          document.documentElement.classList.contains('dark') ? 'text-teal-300' : 'text-teal-400'
+        }`}>
           Ebook Design Portfolio
         </h1>
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="h-1.5 bg-gradient-to-r from-cyan-400 to-indigo-500 rounded-full mx-auto w-1/2 max-w-xs"
+          className="h-1.5 bg-gradient-to-r from-teal-400 to-blue-400 rounded-full mx-auto w-1/2 max-w-sm"
         />
-        <p className="text-gray-200 text-lg sm:text-xl max-w-3xl mx-auto mt-6">
+        <p className={`text-base md:text-lg max-w-4xl mx-auto mt-6 font-poppins ${
+          document.documentElement.classList.contains('dark') ? 'text-gray-200' : 'text-gray-800'
+        }`}>
           Professionally designed eBooks for a new reading experience
         </p>
       </motion.header>
@@ -314,27 +318,27 @@ const Ebook = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 0.5,
-              delay: index * 0.1,
+              delay: index * 0.15,
               type: 'spring',
               stiffness: 100,
             }}
             whileHover={{
               y: -10,
-              boxShadow: '0 20px 25px rgba(0, 0, 0, 0.2)',
+              boxShadow: '0 20px 25px rgba(0, 0, 0, 0.15)',
             }}
-            className="bg-white dark:bg-gray-800 p-8 rounded-3xl border border-gray-300 dark:border-gray-600 hover:border-cyan-500 transition-all relative overflow-hidden"
+            className="bg-white/10 dark:bg-gray-900/10 p-6 rounded-3xl backdrop-blur-sm border border-transparent hover:border-teal-500/50 transition-all relative overflow-hidden"
           >
             <motion.div
               className="absolute inset-0 border-4 border-transparent rounded-3xl"
               whileHover={{
-                borderColor: document.documentElement.classList.contains('dark') ? 'rgba(59, 130, 246, 0.5)' : 'rgba(59, 130, 246, 0.7)',
-                transition: { duration: 0.3 }
+                borderColor: 'rgba(45, 212, 191, 0.5)',
+                transition: { duration: 0.3 },
               }}
             />
             {/* Slideshow Ebook */}
             <motion.div
-              whileHover={{ scale: 1.03 }}
-              className="relative w-full max-w-md mx-auto aspect-[3/4] mb-6 rounded-2xl overflow-hidden cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              className="relative w-full max-w-md mx-auto aspect-[3/4] mb-6 rounded-2xl overflow-hidden cursor-pointer shadow-md"
               onClick={() => openLightbox(ebook.id)}
               onMouseEnter={() => handleMouseEnter(ebook.id)}
               onMouseLeave={() => handleMouseLeave(ebook.id)}
@@ -349,16 +353,16 @@ const Ebook = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.3 }}
                     className="w-full h-full object-contain bg-gray-100"
                   />
                 </AnimatePresence>
                 <motion.div
-                  className="absolute inset-0 flex items-center justify-center opacity-0 bg-black/50"
+                  className="absolute inset-0 flex items-center justify-center opacity-0 bg-black/50 backdrop-blur-sm"
                   whileHover={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <p className="text-white text-center p-4 text-sm font-medium">
+                  <p className="text-white text-center p-4 text-sm font-medium font-poppins">
                     {ebook.description}
                   </p>
                 </motion.div>
@@ -369,7 +373,7 @@ const Ebook = () => {
                 onClick={(e) => prevSlide(ebook.id, e)}
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.9 }}
-                className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/50 dark:bg-gray-800/50 text-black dark:text-white p-3 rounded-full hover:bg-white/70 dark:hover:bg-gray-900/70 transition-all z-10"
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-teal-500/50 text-white p-2 rounded-full hover:bg-teal-500/70 transition-all z-10"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -385,7 +389,7 @@ const Ebook = () => {
                 onClick={(e) => nextSlide(ebook.id, e)}
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.9 }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/50 dark:bg-gray-800/50 text-black dark:text-white p-3 rounded-full hover:bg-white/70 dark:hover:bg-gray-900/70 transition-all z-10"
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-teal-500/50 text-white p-2 rounded-full hover:bg-teal-500/70 transition-all z-10"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -399,7 +403,7 @@ const Ebook = () => {
               </motion.button>
 
               {/* Slide Indicator */}
-              <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10">
+              <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 z-10">
                 {ebook.images.map((_, idx) => (
                   <motion.button
                     key={idx}
@@ -408,31 +412,39 @@ const Ebook = () => {
                       setCurrentSlide((prev) => ({ ...prev, [ebook.id]: idx }));
                     }}
                     whileHover={{ scale: 1.2 }}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      currentSlide[ebook.id] === idx ? 'bg-cyan-400 w-4' : 'bg-gray-800/50 hover:bg-gray-800/70'
+                    className={`h-1.5 rounded-full transition-all ${
+                      currentSlide[ebook.id] === idx ? 'bg-teal-400 w-6' : 'bg-gray-400/50 w-2 hover:bg-gray-400/70'
                     }`}
                   />
                 ))}
               </div>
 
               {/* Slide Count */}
-              <span className="absolute bottom-3 right-3 text-sm bg-white/70 dark:bg-gray-800/70 text-black dark:text-white px-3 py-1 rounded-full z-10">
+              <span className="absolute bottom-3 right-3 text-sm bg-teal-500/70 text-white px-2 py-1 rounded-full z-10">
                 Slide {currentSlide[ebook.id] + 1}/{ebook.images.length}
               </span>
             </motion.div>
 
             {/* Ebook Content */}
             <div className="px-4">
-              <h3 className="text-3xl font-bold mb-4 text-cyan-400">{ebook.title}</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">{ebook.description}</p>
+              <h3 className={`text-2xl md:text-3xl font-bold mb-4 font-poppins ${
+                document.documentElement.classList.contains('dark') ? 'text-teal-300' : 'text-teal-400'
+              }`}>
+                {ebook.title}
+              </h3>
+              <p className={`text-base md:text-lg mb-6 font-poppins ${
+                document.documentElement.classList.contains('dark') ? 'text-gray-200' : 'text-gray-800'
+              }`}>
+                {ebook.description}
+              </p>
 
               {/* Tags */}
-              <div className="flex flex-wrap gap-3 mb-8">
+              <div className="flex flex-wrap gap-2 mb-6">
                 {ebook.tags.map((tag) => (
                   <motion.span
                     key={tag}
-                    whileHover={{ scale: 1.12 }}
-                    className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-full text-sm font-medium text-gray-800 dark:text-gray-200"
+                    whileHover={{ scale: 1.1 }}
+                    className="px-3 py-1 bg-teal-500/20 text-teal-400 rounded-full text-sm font-medium font-poppins"
                   >
                     {tag}
                   </motion.span>
@@ -448,18 +460,16 @@ const Ebook = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="text-center"
+        className="text-center mb-12"
       >
         <motion.button
           onClick={handleBackNavigation}
           whileHover={{
-            scale: 1.06,
-            boxShadow: '0 0 20px rgba(72, 187, 120, 0.7)',
-            background: 'linear-gradient(to right, rgb(234, 88, 12), rgb(249, 115, 22))',
+            scale: 1.05,
+            boxShadow: '0 10px 25px rgba(59, 130, 246, 0.5)',
           }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ type: 'spring', stiffness: 250, damping: 15 }}
-          className="px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-800 rounded-xl font-semibold text-white shadow-lg transition-all flex items-center justify-center gap-3 mx-auto"
+          whileTap={{ scale: 0.95 }}
+          className="px-8 py-4 text-white font-semibold text-lg rounded-xl bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 backdrop-blur-sm bg-white/10 shadow-lg flex items-center justify-center gap-3 mx-auto"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -470,7 +480,7 @@ const Ebook = () => {
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          <span className="text-lg">Return to Projects</span>
+          <span className="text-lg font-poppins">Return to Projects</span>
         </motion.button>
       </motion.div>
     </motion.div>
