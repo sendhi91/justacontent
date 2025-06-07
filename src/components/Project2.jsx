@@ -132,9 +132,9 @@ const Projects = () => {
   };
 
   const handleViewProject = useCallback(() => {
-    console.log('Navigating to /ebook');
+    console.log('Navigating to /projects/ebook');
     try {
-      navigate('/ebook', {
+      navigate('/projects/ebook', {
         state: { from: 'project2' },
       });
     } catch (error) {
@@ -313,15 +313,15 @@ const Projects = () => {
                         whileHover={{ scale: 1.06 }}
                       >
                         <img
-                          src={img}
-                          alt={`Slide ${(idx % project.slideshowImages.length) + 1} of ${project.title}`}
-                          className="w-full h-full object-contain bg-gray-100"
-                          loading="lazy"
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = project.placeholder;
-                          }}
-                        />
+  src={img}
+  alt={`Slide ${(idx % project.slideshowImages.length) + 1} of ${project.title}`}
+  className="w-full h-full object-contain bg-gray-100"
+  loading="lazy"
+  onError={(e) => {
+    e.target.onerror = null; // Prevent infinite loop if placeholder also fails
+    e.target.src = project.placeholder; // Set fallback image
+  }}
+/>
                         {idx % project.slideshowImages.length === (currentSlide[project.id] || 0) && (
                           <div className="absolute inset-0 bg-black/25" />
                         )}

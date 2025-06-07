@@ -119,7 +119,7 @@ const Projects = () => {
 
   const handleViewProject = useCallback(() => {
     try {
-      navigate('/presentation', {
+      navigate('/projects/presentation', {
         state: { from: 'project1' },
       });
     } catch (error) {
