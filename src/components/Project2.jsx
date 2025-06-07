@@ -211,7 +211,7 @@ const Projects = () => {
     >
       {/* <audio ref={audioRef} src="/audio/bg-music.mp3" /> */}
 
-      {/* Left Marker Line */}
+      {/* Left Marker Line
       <motion.div
         className="absolute left-0 md:left-8 top-0 h-full w-1 animate-pulse"
         style={{
@@ -224,7 +224,7 @@ const Projects = () => {
           scaleY: 1,
           transition: { delay: 0.3, duration: 1.2, ease: 'easeOut' },
         }}
-      />
+      /> */}
 
       {/* Floating Elements */}
       {floatingElements.map((element) => (
@@ -469,10 +469,10 @@ const Projects = () => {
             </svg>
           </motion.button>
           <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-            className="mt-8 h-1.5 bg-gradient-to-r from-blue-400 to-teal-400 rounded-full mx-auto w-4/5 sm:w-2/3"
+            // initial={{ opacity: 0, scaleX: 0 }}
+            // animate={{ opacity: 1, scaleX: 1 }}
+            // transition={{ duration: 0.5, delay: 0.7 }}
+            // className="mt-8 h-1.5 bg-gradient-to-r from-blue-400 to-teal-400 rounded-full mx-auto w-4/5 sm:w-2/3"
           />
         </motion.div>
       </motion.div>
