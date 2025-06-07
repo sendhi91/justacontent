@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDarkMode } from '../context/DarkModeContext';
@@ -73,16 +72,24 @@ const Contact = () => {
       } transition-colors duration-300 overflow-hidden`}
     >
       <div className="max-w-7xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className={`text-4xl md:text-5xl font-extrabold mb-12 text-center ${
-            darkMode ? 'text-white' : 'text-gray-900'
-          }`}
-        >
-          Let's <span className="text-blue-500">Connect</span> & Create
-        </motion.h2>
+        <motion.div className="text-center mb-12">
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className={`text-4xl md:text-5xl font-extrabold ${
+              darkMode ? 'text-white' : 'text-gray-900'
+            }`}
+          >
+            Let's <span className="text-blue-500">Connect</span> & Create
+          </motion.h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="h-1.5 bg-gradient-to-r from-blue-400 to-teal-400 rounded-full mx-auto w-1/2 max-w-xs mt-4"
+          />
+        </motion.div>
 
         <motion.div
           variants={containerVariants}
@@ -128,16 +135,15 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className={`font-semibold transition-colors ${
-  darkMode ? 'text-white group-hover:text-gray-100' : 'text-black group-hover:text-blue-500'
-}`}>
-  {method.name}
-</p>
-<p className={`text-sm transition-colors ${
-  darkMode ? 'text-gray-400 group-hover:text-gray-200' : 'text-black group-hover:text-blue-500'
-}`}>
-  {method.value}
-</p>
-
+                      darkMode ? 'text-white group-hover:text-gray-100' : 'text-black group-hover:text-blue-500'
+                    }`}>
+                      {method.name}
+                    </p>
+                    <p className={`text-sm transition-colors ${
+                      darkMode ? 'text-gray-400 group-hover:text-gray-200' : 'text-black group-hover:text-blue-500'
+                    }`}>
+                      {method.value}
+                    </p>
                   </div>
                 </motion.a>
               ))}
