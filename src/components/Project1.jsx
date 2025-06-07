@@ -158,13 +158,28 @@ const Projects = () => {
     }
   };
 
+  const pageVariants = {
+    initial: { opacity: 0, x: "100%" },
+    animate: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: "-100%" },
+  };
+
+  const pageTransition = {
+    duration: 0.5,
+    ease: "easeInOut",
+  };
+
   return (
     <motion.section
-      initial="hidden"
-      animate="visible"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
       exit="exit"
+      transition={pageTransition}
       className={`relative overflow-hidden px-6 sm:px-12 md:px-16 pt-32 pb-20 max-w-8xl mx-auto min-h-screen ${
-        darkMode ? 'bg-[#0F8BCC]' : 'bg-[#07A9F0]'
+        darkMode 
+          ? 'bg-gradient-to-r from-[#1e3a8a] to-[#5b21b6]' 
+          : 'bg-gradient-to-r from-[#e0f7fa] to-[#a5f3fc]'
       }`}
     >
       {/* <audio ref={audioRef} src="/audio/bg-music.mp3" /> */}
@@ -185,11 +200,17 @@ const Projects = () => {
           }
         }}
       >
-        <h2 className="text-5xl sm:text-6xl font-extrabold mb-6 text-white tracking-tight">
+        <h2 className="text-5xl sm:text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400 dark:from-teal-300 dark:to-blue-300 tracking-tight">
           My Presentation Design
         </h2>
-        <p className={`max-w-3xl mx-auto text-lg ${darkMode ? 'text-gray-100' : 'text-gray-200'}`}>
-          Explore my curated collection of professional design projects
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="h-1.5 bg-gradient-to-r from-blue-400 to-teal-400 rounded-full mx-auto w-1/2 max-w-xs"
+        />
+        <p className={`max-w-3xl mx-auto text-lg mt-6 ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>
+          Discover my curated collection of professional presentation designs
         </p>
       </motion.div>
 
@@ -199,17 +220,24 @@ const Projects = () => {
             key={project.id}
             variants={itemVariants}
             whileHover="hover"
-            className={`p-8 rounded-3xl border transition-all duration-300 ${
+            className={`p-8 rounded-3xl border transition-all duration-300 relative overflow-hidden ${
               darkMode 
-                ? 'bg-gray-800/95 hover:bg-gray-800/100 border-gray-700 hover:border-blue-400'
+                ? 'bg-gray-800/95 hover:bg-gray-800/100 border-gray-700 hover:border-teal-400'
                 : 'bg-white/95 hover:bg-white/100 border-gray-200 hover:border-blue-400'
             }`}
             custom={index}
           >
-            <div className="mb-8">
+            <motion.div
+              className="absolute inset-0 border-4 border-transparent rounded-3xl"
+              whileHover={{
+                borderColor: darkMode ? 'rgba(20, 184, 166, 0.5)' : 'rgba(59, 130, 246, 0.5)',
+                transition: { duration: 0.3 }
+              }}
+            />
+            <div className="mb-8 relative z-10">
               <motion.div
                 whileHover={{ scale: 1.03 }}
-                className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-6 shadow-lg"
+                className="relative w-full max-w-md mx-auto aspect-[16/9] rounded-2xl overflow-hidden mb-6 shadow-lg"
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <img
@@ -223,6 +251,15 @@ const Projects = () => {
                   }}
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t ${darkMode ? 'from-black/70' : 'from-black/50'} to-transparent`} />
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center opacity-0 bg-black/50"
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <p className="text-white text-center p-4 text-sm font-medium">
+                    {project.description}
+                  </p>
+                </motion.div>
               </motion.div>
 
               {project.slideshowImages?.length > 0 && (
@@ -253,9 +290,9 @@ const Projects = () => {
                     {[...project.slideshowImages, ...project.slideshowImages].map((img, idx) => (
                       <motion.div
                         key={`${project.id}-${idx}`}
-                        className={`relative aspect-[16/9] w-96 flex-shrink-0 rounded-lg overflow-hidden ${
+                        className={`relative w-full max-w-xs aspect-[16/9] flex-shrink-0 rounded-lg overflow-hidden ${
                           idx % project.slideshowImages.length === (currentSlide[project.id] || 0) 
-                            ? 'ring-2 ring-blue-400' 
+                            ? 'ring-2 ring-teal-400' 
                             : ''
                         }`}
                         whileHover={{ scale: 1.06 }}
@@ -293,11 +330,11 @@ const Projects = () => {
               )}
             </div>
 
-            <div className="px-4">
-              <h3 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-800'}`}>
+            <div className="px-4 relative z-10">
+              <h3 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>
                 {project.title}
               </h3>
-              <p className={`mb-6 text-lg ${darkMode ? 'text-gray-200' : 'text-gray-600'}`}>
+              <p className={`mb-6 text-lg ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>
                 {project.description}
               </p>
 
@@ -306,11 +343,7 @@ const Projects = () => {
                   <motion.span
                     key={tag}
                     whileHover={{ scale: 1.12 }}
-                    className={`px-4 py-2 rounded-full text-sm font-medium ${
-                      darkMode 
-                        ? 'bg-orange-500 text-white hover:bg-blue-500 hover:text-white'
-                        : 'bg-orange-500 text-white hover:bg-blue-500 hover:text-white'
-                    } transition-colors shadow-sm`}
+                    className={`px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-blue-400 to-teal-400 hover:from-blue-500 hover:to-teal-500 text-white transition-colors shadow-sm`}
                   >
                     {tag}
                   </motion.span>
@@ -330,11 +363,11 @@ const Projects = () => {
             onClick={handleViewProject}
             whileHover={{ 
               scale: 1.06,
-              boxShadow: '0 0 20px rgba(72, 187, 120, 0.7)'
+              boxShadow: '0 0 20px rgba(20, 184, 166, 0.7)'
             }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 250, damping: 15 }}
-            className="w-full max-w-lg mx-auto py-4 px-8 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-green-500 hover:to-green-600 text-white font-semibold rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-lg"
+            className="w-full max-w-lg mx-auto py-4 px-8 bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white font-semibold rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-lg"
             aria-label="View Presentation Project"
           >
             <span className="text-lg">View More Presentation Project</span>
@@ -346,7 +379,7 @@ const Projects = () => {
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
             transition={{ duration: 0.5, delay: 0.7 }}
-            className="mt-8 h-1.5 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full mx-auto w-4/5 sm:w-2/3"
+            className="mt-8 h-1.5 bg-gradient-to-r from-blue-400 to-teal-400 rounded-full mx-auto w-4/5 sm:w-2/3"
           />
         </motion.div>
       </motion.div>
