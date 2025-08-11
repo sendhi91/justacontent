@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SiUpwork } from 'react-icons/si';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
-import profileImage from '../assets/profile.webp';
+import profileImage from '../assets/profile.png';
 import amongUsImage from '../assets/minions.png';
 
 const Hero = () => {
@@ -344,27 +344,24 @@ const Hero = () => {
           variants={textVariants}
         >
           <div className="relative">
-            <motion.img
-              src={profileImage}
-              alt="Albertus Sendhi"
-              className="relative z-10 w-72 h-72 md:w-96 md:h-96 object-cover"
-              style={{
-                clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-              }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{
-                opacity: 1,
-                scale: [1, 1.02, 1, 1.03, 1],
-                transition: {
-                  opacity: { duration: 1 },
-                  scale: {
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  },
-                },
-              }}
-            />
+          <motion.img
+  src={profileImage}
+  alt="Albertus Sendhi"
+  className="relative z-10 w-[28rem] h-[28rem] object-cover"
+  style={{
+    clipPath: 'circle(90% at 50% 50%)', // lingkaran lebih besar
+    objectPosition: 'center top',       // fokus ke kepala
+  }}
+  initial={{ opacity: 0, scale: 0.8 }}
+  animate={{
+    opacity: 1,
+    scale: [1, 1.02, 1, 1.03, 1],
+    transition: {
+      opacity: { duration: 1 },
+      scale: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
+    },
+  }}
+/>
             <motion.div
               className="absolute inset-0 z-0 rounded-full"
               style={{
